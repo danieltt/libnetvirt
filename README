@@ -1,0 +1,52 @@
+Welcome to the libnetvirt library. The library to virtualize your network.
+Author: Daniel Turull KTH Royal Institute of Technology <danieltt@kth.se>
+
+Tested on Ubuntu 11.10
+
+Pre-requisites:
+autoconf
+libtool
+libxml2-dev
+swig
+build-essential
+pkg-config
+python-all-dev
+
+
+
+Interface with PyOCNI:
+* Python=2.7
+* Python-all-dev (for eventlet/greenlet install)
+* python-setuptools (to execute the setup.py file)
+
+
+Installing with OpenFlow nox controller (nox or nox11oflib)
+
+
+Pre-requisites:
+autoconf 
+automake 
+g++
+libtool
+swig
+make
+git-core
+libboost-dev
+libboost-test-dev
+libboost-filesystem-dev
+libssl-dev
+libpcap-dev
+python-twisted
+libboost-dev
+
+Compiling:
+./boot.sh
+mkdir build
+cd build
+../configure
+make
+
+Running FNS with NOX
+ ./nox_core -i ptcp: fns
+
+Enjoy :-)
