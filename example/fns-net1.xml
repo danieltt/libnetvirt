@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<description xmlns="http://www.sail-project.eu/fns">
+	<fns name="simple-fns" uuid="2">
+		<endpoint uuid="1">
+			<swId>1</swId>
+			<port>1</port>
+		</endpoint>
+		<endpoint uuid="3">
+			<swId>3</swId>
+			<port>2</port>
+		</endpoint>
+		<endpoint uuid="5">
+			<swId>5</swId>
+			<port>1</port>
+			<mpls>200</mpls>
+		</endpoint>
+		<forwarding>L2</forwarding>
+	</fns>
+</description>

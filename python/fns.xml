@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<description xmlns="http://www.sail-project.eu/fns">
+	<fns name="two-fns" uuid="1">
+		<endpoint uuid="10" >
+			<swId>2</swId>
+			<port>2</port>
+			<vlan>10</vlan>
+			</endpoint>
+		<endpoint uuid="40">
+			<swId>4</swId>
+			<port>1</port>
+		</endpoint>
+		<forwarding>L2</forwarding>
+	</fns>
+</description>
