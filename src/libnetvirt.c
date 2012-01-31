@@ -105,6 +105,7 @@ fnsDesc* create_local_fns(uint64_t uuid, int nEp, char* name) {
 		memcpy(ret->name, name, strlen(name));
 	return ret;
 }
+
 endpoint* add_local_epoint(fnsDesc* fns, int index, uint64_t uuid,
 		uint64_t swId, uint32_t port, uint32_t vlan, uint32_t mpls) {
 	if (index < fns->nEp) {
