@@ -40,6 +40,7 @@ python-twisted
 libboost-dev
 
 Compiling:
+cd nox11oflib or cd nox
 ./boot.sh
 mkdir build
 cd build
@@ -47,6 +48,7 @@ cd build
 make
 
 Running FNS with NOX
+cd src
  ./nox_core -i ptcp: fns
 
 Enjoy :-)
