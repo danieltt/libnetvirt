@@ -66,6 +66,10 @@ Nox and nox11oflib need these packages to run:
 sudo apt-get install autoconf automake g++ libtool swig make git-core \
 	 libboost-dev libboost-test-dev libboost-filesystem-dev libssl-dev \
 	 libpcap-dev python-twisted libboost-dev
+	 
+PyOCNI needs these packages to run:
+sudo apt-get install python python-all-dev python-setuptools
+
 
 2.2 Getting the sources
 -----------------------
@@ -81,14 +85,14 @@ Compile libnetvirt
 ./configure
 make
 
-To compile pyOCNI 
+To compile PyOCNI 
 copy the libnetvirt library to the backends folder in pyOCNI
 
 cp python/libnetvirt.py PyOCNI/pyocni/backend/libnetvirt.py
-cp python/libnetvirt.py PyOCNI/pyocni/backend/libnetvirt.py
+cp src/.libs/libnetvirt-0.1.so.1.0.2 PyOCNI/pyocni/backend/_libnetvirt.so 
 
-and follow the instructions in
-PyOCNI/README
+cd PyOCNI
+sudo python setup install
 
 
 To install OpenFlow NOX controller (nox or nox11oflib)
