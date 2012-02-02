@@ -1,0 +1,15 @@
+Version 0.1 02 Feb 2012
+-----------------------
+* OpenFlow 1.0 and 1.1 Support
+* Definition of endpoints with:
+	- Switch:
+	- Port:
+	- VLANs: Can be different for each endpoint
+* Creation of VN
+* Removal of VN
+* Addition of endpoints to VNs
+* Removal of endpoints to VNs
+* Removal of VN
+* PyOCNI support
+* Shell example
+* Python wrappers

@@ -1,45 +1,98 @@
+libnetvirt README
+-----------------
+
+Copyright (C) Daniel Turull <danieltt@kth.se>
+Redistribution of this software is permitted under the terms of the LGPL License
+
 Welcome to the libnetvirt library. The library to virtualize your network.
-Author: Daniel Turull KTH Royal Institute of Technology <danieltt@kth.se>
 
-Tested on Ubuntu 11.10
+Table of Contents
+-----------------
+0. What is it?
+1. The Latest Version
+2. Installation
+2.1. Requirements
+2.2 Getting the sources
+2.2. Install
+3. HotTo use (examples)
+4. Licensing
+5. Contacts
+6. Acknowledgment
+7. Todo
 
-Pre-requisites:
-autoconf
-libtool
-libxml2-dev
-swig
-build-essential
-pkg-config
-python-all-dev
+-----------------------------------------------------------------------------
+0. What is it?
+-----------------------------------------------------------------------------
+Libnetvirt is a library that helps to manage virtual networks abstracting the
+underlying technology. Only the endpoints to interconnect are required to 
+create the network.
 
+Currently only has OpenFlow support but we will other underlying technologies.
 
+It is composed several components:
 
-Interface with PyOCNI:
-* Python=2.7
-* Python-all-dev (for eventlet/greenlet install)
-* python-setuptools (to execute the setup.py file)
+* libnetvirt: 	library to use with the management applications to control the 
+				network
+				There are C, C++ and Python interfaces
+* PyOCNI:		PyOCNI (Python Open Cloud Networking Interface): A Python
+				implementation of an extended OCCI with a JSON serialization
+				and a cloud networking extension.
+				By: Houssem Medhioub
+* nox:			OpenFlow controller for the driver of OpenFlow 1.0
+* nox11oflib	OpenFlow controller for the driver of OpenFlow 1.1
 
+-----------------------------------------------------------------------------
+1. The Latest Version
+-----------------------------------------------------------------------------
 
-Installing with OpenFlow nox controller (nox or nox11oflib)
+version 0.1
+1 Feb 2012
+status: Still an ongoing work
 
+-----------------------------------------------------------------------------
+2. Installation
+-----------------------------------------------------------------------------
 
-Pre-requisites:
-autoconf 
-automake 
-g++
-libtool
-swig
+2.1. Requirements
+-----------------
+This software has been tested on:
+* Ubuntu 11.10 64 bits
+
+Libnetvirt needs these packages to run:
+sudo apt-get install autoconf libtool libxml2-dev swig build-essential \
+	 pkg-config python-all-dev git
+
+Nox and nox11oflib need these packages to run:
+sudo apt-get install autoconf automake g++ libtool swig make git-core \
+	 libboost-dev libboost-test-dev libboost-filesystem-dev libssl-dev \
+	 libpcap-dev python-twisted libboost-dev
+
+2.2 Getting the sources
+-----------------------
+Libnetvirt is composed with multiple parts and different git sources
+git clone git@bitbucket.org:dturull/libnetvirt.git
+git submodule init
+git submodule update
+
+2.2 Install
+-----------
+Compile libnetvirt
+./boot
+./configure
 make
-git-core
-libboost-dev
-libboost-test-dev
-libboost-filesystem-dev
-libssl-dev
-libpcap-dev
-python-twisted
-libboost-dev
 
-Compiling:
+To compile pyOCNI 
+copy the libnetvirt library to the backends folder in pyOCNI
+
+cp python/libnetvirt.py PyOCNI/pyocni/backend/libnetvirt.py
+cp python/libnetvirt.py PyOCNI/pyocni/backend/libnetvirt.py
+
+and follow the instructions in
+PyOCNI/README
+
+
+To install OpenFlow NOX controller (nox or nox11oflib)
+
 cd nox11oflib or cd nox
 ./boot.sh
 mkdir build
@@ -47,8 +100,84 @@ cd build
 ../configure
 make
 
-Running FNS with NOX
-cd src
+------------------------------------------------------------------------------
+3. HotTo use (examples)
+------------------------------------------------------------------------------
+To use the library it is necessary to start the drivers first:
+For nox or nox11oflib
+Change the directory
+cd nox/build/src
+or
+cd nox11oflib/build/src
+Run the fns application:
  ./nox_core -i ptcp: fns
+ 
+For OCNI examples see libnetvirt
+PyOCNI/README
 
-Enjoy :-)
+There is an example called shell that it is CLI to control the network
+To use go to examples and execute
+./shell
+It processes XML files that describe the network:
+see *.xml for examples
+to create a network, assuming that the controller is running in the same host
+#connect to the driver
+connect
+
+# create a VN
+create fns.xml
+
+# Add one endpoint to the VN
+modify_add fns-add.xml
+
+# Remove one endpoint from the VN
+modify_del fns-add.xml
+
+# Remove the comple VN
+remove fns.xml
+
+# Disconnect from the driver
+disconenct
+
+-----------------------------------------------------------------------------
+4. Licensing
+-----------------------------------------------------------------------------
+
+Copyright (C) 2012 Daniel Turull - KTH Royal Institute of Technology
+
+This library is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as
+published by the Free Software Foundation, either version 3 of
+the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this library.  If not, see <http://www.gnu.org/licenses/>.
+
+-----------------------------------------------------------------------------
+5. Contacts
+-----------------------------------------------------------------------------
+
+Daniel Turull:
+danieltt@kth.se
+
+-----------------------------------------------------------------------------
+6. Acknowledgment
+-----------------------------------------------------------------------------
+This work has been supported by:
+     SAIL project (IST 7th Framework Programme Integrated Project) 
+     [http://sail-project.eu/]
+
+
+-----------------------------------------------------------------------------
+7. Todo
+-----------------------------------------------------------------------------
+This release of libnetvirt is experimental.  There are many aspects of
+the application that need tending to if it is ever going to fly.
+
+
+
