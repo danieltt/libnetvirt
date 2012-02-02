@@ -10,9 +10,7 @@ aclocal.m4
 autom4te.cache/
 build/
 m4
-configure.ac
 configure
-backup.sh
 config.guess
 config.sub
 depcomp
@@ -28,4 +26,3 @@ example/shell
 libtool
 stamp-h1
 test_lib
-PyOCNI/pyocni/doc
