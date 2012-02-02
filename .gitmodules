@@ -1,3 +1,6 @@
 [submodule "nox11oflib"]
 	path = nox11oflib
 	url = git@bitbucket.org:dturull/nox11oflib.git
+[submodule "PyOCNI"]
+	path = PyOCNI
+	url = git@github.com:danieltt/PyOCNI.git
