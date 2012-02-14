@@ -28,6 +28,7 @@ extern "C" {
 
 #define DRIVER_OF_NOX 1
 #define DRIVER_MPLS 2
+#define DRIVER_DUMMY 3
 
 #define MAX_NAME_SIZE 20
 
