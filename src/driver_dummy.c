@@ -17,11 +17,11 @@
 
  */
 
-#include "libnetvirt/libnetvirt.h"
 #include "libnetvirt/dummy.h"
 #include "libnetvirt/fns.h"
 
-#include <Python.h>
+#include "libnetvirt_wrap.c"
+
 
 #define DUMMY_SCRIPT "driver_dummy"
 
@@ -43,7 +43,8 @@ int dummy_connect(char* addr, int port) {
 	if (info_dummy.pModule != NULL) {
 		pFunc = PyObject_GetAttrString(info_dummy.pModule, "dummy_connect");
 		if (pFunc && PyCallable_Check(pFunc)) {
-			pValue = PyObject_CallFunctionObjArgs(pFunc, PyString_FromString("localhost"), PyInt_FromLong(12),NULL);
+			pValue = PyObject_CallFunctionObjArgs(pFunc, PyString_FromString(
+					"localhost"), PyInt_FromLong(12), NULL);
 			if (pValue != NULL) {
 				printf("Result of call: %ld\n", PyInt_AsLong(pValue));
 				Py_DECREF(pValue);
@@ -60,7 +61,7 @@ int dummy_connect(char* addr, int port) {
 		}
 		Py_XDECREF(pFunc);
 
-	}else{
+	} else {
 		PyErr_Print();
 		fprintf(stderr, "Failed to load \"%s\"\n", DUMMY_SCRIPT);
 	}
@@ -69,7 +70,7 @@ int dummy_connect(char* addr, int port) {
 int dummy_stop(void) {
 
 	if (Py_IsInitialized()) {
-		if(info_dummy.pModule)
+		if (info_dummy.pModule)
 			Py_DECREF(info_dummy.pModule);
 
 		Py_Finalize();
@@ -77,6 +78,39 @@ int dummy_stop(void) {
 	return 0;
 }
 int dummy_instantiate_fns(fnsDesc *desc) {
+	PyObject *pFunc = NULL, *pValue= NULL, *pArg = NULL;
+	if (!Py_IsInitialized())
+		return -1;
+	SWIG_init();		// Initialise SWIG types
+
+	if (info_dummy.pModule != NULL) {
+		pFunc = PyObject_GetAttrString(info_dummy.pModule, "dummy_create_fns");
+		if (pFunc && PyCallable_Check(pFunc)) {
+			pArg = SWIG_NewPointerObj(SWIG_as_voidptr(desc), SWIGTYPE_p_fns_desc, SWIG_POINTER_NEW |  0 );
+			if (pArg) {
+				pValue = PyObject_CallFunction(pFunc, "O", pArg);
+			}
+			if (pValue != NULL) {
+				printf("Result of call: %ld\n", PyInt_AsLong(pValue));
+				Py_DECREF(pValue);
+			} else {
+				Py_DECREF(pFunc);
+				PyErr_Print();
+				fprintf(stderr, "Call failed\n");
+				return 1;
+			}
+		} else {
+			if (PyErr_Occurred())
+				PyErr_Print();
+			fprintf(stderr, "Cannot find function \n");
+		}
+		Py_XDECREF(pFunc);
+
+	} else {
+		PyErr_Print();
+		fprintf(stderr, "Failed to load \"%s\"\n", DUMMY_SCRIPT);
+	}
+
 	return 0;
 }
 int dummy_remove_fns(fnsDesc *desc) {

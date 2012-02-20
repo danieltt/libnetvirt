@@ -68,6 +68,7 @@ except AttributeError:
 
 DRIVER_OF_NOX = _libnetvirt.DRIVER_OF_NOX
 DRIVER_MPLS = _libnetvirt.DRIVER_MPLS
+DRIVER_DUMMY = _libnetvirt.DRIVER_DUMMY
 MAX_NAME_SIZE = _libnetvirt.MAX_NAME_SIZE
 class endpoint(_object):
     __swig_setmethods__ = {}

@@ -5965,6 +5965,7 @@ SWIG_init(void) {
   
   SWIG_Python_SetConstant(d, "DRIVER_OF_NOX",SWIG_From_int((int)(1)));
   SWIG_Python_SetConstant(d, "DRIVER_MPLS",SWIG_From_int((int)(2)));
+  SWIG_Python_SetConstant(d, "DRIVER_DUMMY",SWIG_From_int((int)(3)));
   SWIG_Python_SetConstant(d, "MAX_NAME_SIZE",SWIG_From_int((int)(20)));
 #if PY_VERSION_HEX >= 0x03000000
   return m;

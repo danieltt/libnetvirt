@@ -14,7 +14,6 @@
 #
 # You should have received a copy of the GNU Lesser General Public License
 # along with this library.  If not, see <http://www.gnu.org/licenses/>.
-
 import libnetvirt
 
 def dummy_connect(addr,port):
@@ -24,7 +23,10 @@ def dummy_connect(addr,port):
 def dummy_stop():
     print "stop"
     
-def dummy_instantiate_fns(desc):
+def dummy_create_fns(desc):
+    print "create fns"
+    libnetvirt.printFNS(desc)
+    print "uuid" + desc.nEp
     print "create"
     
 def dummy_remove_fns(desc):

@@ -25,7 +25,7 @@ lib_LTLIBRARIES = libnetvirt-@LIBNETVIRT_API_VERSION@.la
 ## rules which invoke the C++ compiler to produce a libtool object file (.lo)
 ## from each source file.  Note that it is not necessary to list header files
 ## which are already listed elsewhere in a _HEADERS variable assignment.
-libnetvirt_@LIBNETVIRT_API_VERSION@_la_SOURCES = libnetvirt.c of-nox.c fns.c libnetvirt_wrap.c libnetvirt.i driver_dummy.c driver_dummy_py
+libnetvirt_@LIBNETVIRT_API_VERSION@_la_SOURCES = libnetvirt.c of-nox.c fns.c libnetvirt.i driver_dummy.c driver_dummy.py
 
 ## Instruct libtool to include ABI version information in the generated shared
 ## library file (.so).  The library ABI version is defined in configure.ac, so

@@ -23,6 +23,7 @@
 #include <sys/wait.h>
 #include "config.h"
 #include "libnetvirt/of-nox.h"
+#include "libnetvirt/dummy.h"
 #include "libnetvirt/libnetvirt.h"
 
 struct libnetvirt_info* libnetvirt_init(int driver) {
@@ -43,7 +44,12 @@ struct libnetvirt_info* libnetvirt_init(int driver) {
 		info->ops.modify_fns_del = of_nox_modify_fns_del;
 		info->ops.request_ids = of_nox_request_ids;
 		break;
-	}
+	case DRIVER_DUMMY:
+			info->ops.connect = dummy_connect;
+			info->ops.stop = dummy_stop;
+			info->ops.instantiate_fns = dummy_instantiate_fns;
+			break;
+		}
 	return info;
 }
 
