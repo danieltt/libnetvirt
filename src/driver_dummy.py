@@ -26,7 +26,15 @@ def dummy_stop():
 def dummy_create_fns(desc):
     print "create fns"
     libnetvirt.printFNS(desc)
-    print "uuid" + desc.nEp
+    print "FNS uuid ", libnetvirt.getUuidFromFNS(desc)
+    for i in range(0,libnetvirt.getNepFromFNS(desc)):
+
+        ep = libnetvirt.getEndpoint(desc,i)
+        print "ep uuid", libnetvirt.getUuidFromEp(ep)
+        print "\t swid ", libnetvirt.getSwIdFromEp(ep)
+        print "\t port", libnetvirt.getPortFromEp(ep)
+        print "\t vlan", libnetvirt.getVlanFromEp(ep)
+
     print "create"
     
 def dummy_remove_fns(desc):

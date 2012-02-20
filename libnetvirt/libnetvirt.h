@@ -103,6 +103,19 @@ fnsDesc* parse_fns_Mem(const char *content, int length);
 endpoint* add_local_epoint(fnsDesc* fns, int index, uint64_t uuid,
 		uint64_t swId, uint32_t port, uint32_t vlan, uint32_t mpls);
 fnsDesc* create_local_fns(uint64_t uuid, int nEp, char* name);
+
+/* FNS GETs */
+uint16_t getNepFromFNS(fnsDesc* fns);
+uint64_t getUuidFromFNS(fnsDesc* fns);
+
+/* Endpoint GETs*/
+endpoint* getEndpoint(fnsDesc *fns, int pos);
+uint64_t getUuidFromEp(endpoint* ep);
+uint64_t getSwIdFromEp(endpoint* ep);
+uint16_t getPortFromEp(endpoint* ep);
+uint32_t getMplsFromEp(endpoint* ep);
+uint16_t getVlanFromEp(endpoint* ep);
+
 extern void printFNS(fnsDesc *cur);
 /*Substrate functions*/
 //int define_phy_topology(struct libnetvirt_info*, const char* xml);
