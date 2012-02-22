@@ -30,6 +30,12 @@ extern "C" {
 #define DRIVER_MPLS 2
 #define DRIVER_DUMMY 3
 
+#define LIBNETVIRT_FORWARDING_L2 2
+#define LIBNETVIRT_FORWARDING_L3 3
+
+#define LIBNETVIRT_CONSTRAINT_MINBW 1
+#define LIBNETVIRT_CONSTRAINT_MAXBW 2
+
 #define MAX_NAME_SIZE 20
 
 typedef struct EndPoint {
@@ -42,10 +48,10 @@ typedef struct EndPoint {
 } endpoint;
 
 typedef struct constraint {
+	uint8_t type;
 	uint64_t src;
 	uint64_t dst;
-	uint32_t minBW;
-	uint32_t maxBW;
+	uint32_t value;
 } constraint;
 
 typedef struct fns_desc {
@@ -58,6 +64,7 @@ typedef struct fns_desc {
 } fnsDesc;
 
 #define GET_ENDPOINT(fns, i) (endpoint *) (&fns->data[i*sizeof(endpoint)])
+#define GET_CONSTRAINT(fns, i) (constraint *) (&fns->data[fns->nEp * sizeof(endpoint) + i * sizeof(constraint)])
 #define GET_FNS_SIZE(nEp, nCons) (sizeof(fnsDesc) + sizeof(endpoint) * nEp + sizeof(constraint) * nCons)
 
 /*Operations*/
