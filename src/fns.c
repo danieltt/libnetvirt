@@ -96,9 +96,9 @@ constraint* parseConstraint(xmlDocPtr doc, xmlNsPtr ns, xmlNodePtr cur) {
 	}
 	memset(ret, 0, sizeof(constraint));
 	type = (const char*) xmlGetProp(cur, (const xmlChar *) "type");
-	if(!strcasecmp(type,"minbw"))
+	if (!strcasecmp(type, "minbw"))
 		ret->type = LIBNETVIRT_CONSTRAINT_MINBW;
-	else if (!strcasecmp(type,"maxbw"))
+	else if (!strcasecmp(type, "maxbw"))
 		ret->type = LIBNETVIRT_CONSTRAINT_MAXBW;
 	ret->src = atoi((const char*) xmlGetProp(cur, (const xmlChar *) "src"));
 	ret->dst = atoi((const char*) xmlGetProp(cur, (const xmlChar *) "dst"));
@@ -162,7 +162,7 @@ static fnsDesc* parseFNSdoc(xmlDocPtr doc) {
 				== ns)) {
 			nEp++;
 		}
-		if ((!xmlStrcmp(cur1->name, (const xmlChar *) "path")) && (cur1->ns
+		if ((!xmlStrcmp(cur1->name, (const xmlChar *) "constraint")) && (cur1->ns
 				== ns)) {
 			nCons++;
 		}
@@ -170,14 +170,14 @@ static fnsDesc* parseFNSdoc(xmlDocPtr doc) {
 		cur1 = cur1->next;
 	}
 
-	ret = (fnsDesc*) malloc(GET_FNS_SIZE(nEp,0));
+	ret = (fnsDesc*) malloc(GET_FNS_SIZE(nEp,nCons));
 	if (ret == NULL) {
 		fprintf(stderr, "out of memory\n");
 		xmlFreeDoc(doc);
 		return (NULL);
 	}
 
-	memset(ret, 0, GET_FNS_SIZE(nEp,0));
+	memset(ret, 0, GET_FNS_SIZE(nEp,nCons));
 
 	/*get name*/
 	u_char* name = xmlGetProp(cur, (const xmlChar *) "name");
@@ -190,6 +190,7 @@ static fnsDesc* parseFNSdoc(xmlDocPtr doc) {
 	ret->uuid = atoi((const char*) xmlGetProp(cur, (const xmlChar *) "uuid"));
 
 	ret->nEp = 0;
+	ret->nCons = 0;
 	cur = cur->xmlChildrenNode;
 	while (cur != NULL) {
 		/* endpoint */
@@ -208,7 +209,10 @@ static fnsDesc* parseFNSdoc(xmlDocPtr doc) {
 				== ns)) {
 			curCons = parseConstraint(doc, ns, cur);
 			if (curCons != NULL) {
-				/* TODO copy*/
+				memcpy(GET_CONSTRAINT(ret,ret->nCons), curCons,
+						sizeof(constraint));
+				ret->nCons++;
+				free(curCons);
 			}
 		}
 		/*forwarding*/
@@ -248,14 +252,14 @@ void printFNS(fnsDesc* cur) {
 		printf("name: %s\n", cur->name);
 	printf("Uuid: %lu\n", cur->uuid);
 	printf("Num Endpoints: %d\n", cur->nEp);
-	printf("Num Constraints: %d\n", cur->nEp);
+	printf("Num Constraints: %d\n", cur->nCons);
 	printf("Forwarding: %d\n", cur->forwarding);
 	for (i = 0; i < cur->nEp; i++) {
 		printEndPoint((endpoint*) GET_ENDPOINT(cur, i));
 	}
 	for (i = 0; i < cur->nCons; i++) {
-			printConstraint((constraint*) GET_CONSTRAINT(cur, i));
-		}
+		printConstraint((constraint*) GET_CONSTRAINT(cur, i));
+	}
 }
 
 fnsDesc* parse_fns_Mem(const char *content, int length) {

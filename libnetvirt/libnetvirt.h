@@ -66,6 +66,7 @@ typedef struct fns_desc {
 #define GET_ENDPOINT(fns, i) (endpoint *) (&fns->data[i*sizeof(endpoint)])
 #define GET_CONSTRAINT(fns, i) (constraint *) (&fns->data[fns->nEp * sizeof(endpoint) + i * sizeof(constraint)])
 #define GET_FNS_SIZE(nEp, nCons) (sizeof(fnsDesc) + sizeof(endpoint) * nEp + sizeof(constraint) * nCons)
+#define GET_VN_SIZE(vn) (sizeof(fnsDesc) + sizeof(endpoint) * vn->nEp + sizeof(constraint) * vn->nCons)
 
 /*Operations*/
 struct libnetvirt_ops {

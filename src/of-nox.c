@@ -187,7 +187,7 @@ int of_nox_stop(void) {
 
 int of_nox_send_msg(fnsDesc *desc, int type) {
 //	printFNS(desc);
-	int size= sizeof(struct msg_fns)+desc->nEp*sizeof(endpoint);
+	int size= sizeof(struct msg_fns) + GET_VN_SIZE(desc);
 	void *buf = malloc(size);
 	struct msg_fns* msg= (struct msg_fns*) buf;
 	memset(buf,0,size);
