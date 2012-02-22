@@ -28,10 +28,3 @@
  /* Parse the header file to generate wrappers */
 %include "libnetvirt.h"
 %include <stdint.i>
-
-%inline %{
-endpoint* getEndpoint(fnsDesc *fns, int pos) {
-	return GET_ENDPOINT(fns, pos);
-}
-%}
-

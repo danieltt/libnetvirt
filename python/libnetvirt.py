@@ -68,6 +68,7 @@ except AttributeError:
 
 DRIVER_OF_NOX = _libnetvirt.DRIVER_OF_NOX
 DRIVER_MPLS = _libnetvirt.DRIVER_MPLS
+DRIVER_DUMMY = _libnetvirt.DRIVER_DUMMY
 MAX_NAME_SIZE = _libnetvirt.MAX_NAME_SIZE
 class endpoint(_object):
     __swig_setmethods__ = {}
@@ -274,12 +275,40 @@ def create_local_fns(*args):
   return _libnetvirt.create_local_fns(*args)
 create_local_fns = _libnetvirt.create_local_fns
 
-def printFNS(*args):
-  return _libnetvirt.printFNS(*args)
-printFNS = _libnetvirt.printFNS
+def getNepFromFNS(*args):
+  return _libnetvirt.getNepFromFNS(*args)
+getNepFromFNS = _libnetvirt.getNepFromFNS
+
+def getUuidFromFNS(*args):
+  return _libnetvirt.getUuidFromFNS(*args)
+getUuidFromFNS = _libnetvirt.getUuidFromFNS
 
 def getEndpoint(*args):
   return _libnetvirt.getEndpoint(*args)
 getEndpoint = _libnetvirt.getEndpoint
+
+def getUuidFromEp(*args):
+  return _libnetvirt.getUuidFromEp(*args)
+getUuidFromEp = _libnetvirt.getUuidFromEp
+
+def getSwIdFromEp(*args):
+  return _libnetvirt.getSwIdFromEp(*args)
+getSwIdFromEp = _libnetvirt.getSwIdFromEp
+
+def getPortFromEp(*args):
+  return _libnetvirt.getPortFromEp(*args)
+getPortFromEp = _libnetvirt.getPortFromEp
+
+def getMplsFromEp(*args):
+  return _libnetvirt.getMplsFromEp(*args)
+getMplsFromEp = _libnetvirt.getMplsFromEp
+
+def getVlanFromEp(*args):
+  return _libnetvirt.getVlanFromEp(*args)
+getVlanFromEp = _libnetvirt.getVlanFromEp
+
+def printFNS(*args):
+  return _libnetvirt.printFNS(*args)
+printFNS = _libnetvirt.printFNS
 
 

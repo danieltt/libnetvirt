@@ -3181,11 +3181,6 @@ SWIG_AsVal_int (PyObject * obj, int *val)
 
 #include <stdint.h>		// Use the C99 official header
 
-
-endpoint* getEndpoint(fnsDesc *fns, int pos) {
-	return GET_ENDPOINT(fns, pos);
-}
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -5155,21 +5150,44 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_printFNS(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_getNepFromFNS(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   fnsDesc *arg1 = (fnsDesc *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
+  uint16_t result;
   
-  if (!PyArg_ParseTuple(args,(char *)"O:printFNS",&obj0)) SWIG_fail;
+  if (!PyArg_ParseTuple(args,(char *)"O:getNepFromFNS",&obj0)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_fns_desc, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "printFNS" "', argument " "1"" of type '" "fnsDesc *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "getNepFromFNS" "', argument " "1"" of type '" "fnsDesc *""'"); 
   }
   arg1 = (fnsDesc *)(argp1);
-  printFNS(arg1);
-  resultobj = SWIG_Py_Void();
+  result = (uint16_t)getNepFromFNS(arg1);
+  resultobj = SWIG_From_unsigned_SS_short((unsigned short)(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_getUuidFromFNS(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  fnsDesc *arg1 = (fnsDesc *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  uint64_t result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:getUuidFromFNS",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_fns_desc, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "getUuidFromFNS" "', argument " "1"" of type '" "fnsDesc *""'"); 
+  }
+  arg1 = (fnsDesc *)(argp1);
+  result = (uint64_t)getUuidFromFNS(arg1);
+  resultobj = SWIG_From_unsigned_SS_long_SS_long((unsigned long long)(result));
   return resultobj;
 fail:
   return NULL;
@@ -5201,6 +5219,137 @@ SWIGINTERN PyObject *_wrap_getEndpoint(PyObject *SWIGUNUSEDPARM(self), PyObject 
   arg2 = (int)(val2);
   result = (endpoint *)getEndpoint(arg1,arg2);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_EndPoint, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_getUuidFromEp(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  endpoint *arg1 = (endpoint *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  uint64_t result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:getUuidFromEp",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_EndPoint, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "getUuidFromEp" "', argument " "1"" of type '" "endpoint *""'"); 
+  }
+  arg1 = (endpoint *)(argp1);
+  result = (uint64_t)getUuidFromEp(arg1);
+  resultobj = SWIG_From_unsigned_SS_long_SS_long((unsigned long long)(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_getSwIdFromEp(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  endpoint *arg1 = (endpoint *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  uint64_t result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:getSwIdFromEp",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_EndPoint, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "getSwIdFromEp" "', argument " "1"" of type '" "endpoint *""'"); 
+  }
+  arg1 = (endpoint *)(argp1);
+  result = (uint64_t)getSwIdFromEp(arg1);
+  resultobj = SWIG_From_unsigned_SS_long_SS_long((unsigned long long)(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_getPortFromEp(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  endpoint *arg1 = (endpoint *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  uint16_t result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:getPortFromEp",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_EndPoint, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "getPortFromEp" "', argument " "1"" of type '" "endpoint *""'"); 
+  }
+  arg1 = (endpoint *)(argp1);
+  result = (uint16_t)getPortFromEp(arg1);
+  resultobj = SWIG_From_unsigned_SS_short((unsigned short)(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_getMplsFromEp(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  endpoint *arg1 = (endpoint *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  uint32_t result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:getMplsFromEp",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_EndPoint, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "getMplsFromEp" "', argument " "1"" of type '" "endpoint *""'"); 
+  }
+  arg1 = (endpoint *)(argp1);
+  result = (uint32_t)getMplsFromEp(arg1);
+  resultobj = SWIG_From_unsigned_SS_int((unsigned int)(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_getVlanFromEp(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  endpoint *arg1 = (endpoint *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  uint16_t result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:getVlanFromEp",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_EndPoint, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "getVlanFromEp" "', argument " "1"" of type '" "endpoint *""'"); 
+  }
+  arg1 = (endpoint *)(argp1);
+  result = (uint16_t)getVlanFromEp(arg1);
+  resultobj = SWIG_From_unsigned_SS_short((unsigned short)(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_printFNS(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  fnsDesc *arg1 = (fnsDesc *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:printFNS",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_fns_desc, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "printFNS" "', argument " "1"" of type '" "fnsDesc *""'"); 
+  }
+  arg1 = (fnsDesc *)(argp1);
+  printFNS(arg1);
+  resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
   return NULL;
@@ -5288,8 +5437,15 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"parse_fns_Mem", _wrap_parse_fns_Mem, METH_VARARGS, NULL},
 	 { (char *)"add_local_epoint", _wrap_add_local_epoint, METH_VARARGS, NULL},
 	 { (char *)"create_local_fns", _wrap_create_local_fns, METH_VARARGS, NULL},
-	 { (char *)"printFNS", _wrap_printFNS, METH_VARARGS, NULL},
+	 { (char *)"getNepFromFNS", _wrap_getNepFromFNS, METH_VARARGS, NULL},
+	 { (char *)"getUuidFromFNS", _wrap_getUuidFromFNS, METH_VARARGS, NULL},
 	 { (char *)"getEndpoint", _wrap_getEndpoint, METH_VARARGS, NULL},
+	 { (char *)"getUuidFromEp", _wrap_getUuidFromEp, METH_VARARGS, NULL},
+	 { (char *)"getSwIdFromEp", _wrap_getSwIdFromEp, METH_VARARGS, NULL},
+	 { (char *)"getPortFromEp", _wrap_getPortFromEp, METH_VARARGS, NULL},
+	 { (char *)"getMplsFromEp", _wrap_getMplsFromEp, METH_VARARGS, NULL},
+	 { (char *)"getVlanFromEp", _wrap_getVlanFromEp, METH_VARARGS, NULL},
+	 { (char *)"printFNS", _wrap_printFNS, METH_VARARGS, NULL},
 	 { NULL, NULL, 0, NULL }
 };
 
@@ -5965,6 +6121,7 @@ SWIG_init(void) {
   
   SWIG_Python_SetConstant(d, "DRIVER_OF_NOX",SWIG_From_int((int)(1)));
   SWIG_Python_SetConstant(d, "DRIVER_MPLS",SWIG_From_int((int)(2)));
+  SWIG_Python_SetConstant(d, "DRIVER_DUMMY",SWIG_From_int((int)(3)));
   SWIG_Python_SetConstant(d, "MAX_NAME_SIZE",SWIG_From_int((int)(20)));
 #if PY_VERSION_HEX >= 0x03000000
   return m;
