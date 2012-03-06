@@ -206,7 +206,10 @@ int of_nox_send_msg(fnsDesc *desc, int type) {
 
 int of_nox_instantiate_fns(fnsDesc *desc) {
 //	printf("Processing request ...\n");
-	return of_nox_send_msg(desc, FNS_MSG_ADD);
+	if(of_nox_info.sockfd)
+		return of_nox_send_msg(desc, FNS_MSG_ADD);
+	else
+		return -1;
 }
 
 int of_nox_remove_fns(fnsDesc *desc) {
