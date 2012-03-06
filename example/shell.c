@@ -33,7 +33,7 @@
 
 void usage(void) {
 	puts("create: sends request to server");
-	puts("connect: connect to server");
+	puts("connect [ip] [port]: connect to server");
 	puts("remove: remove fns from server");
 	puts("modify_add: add endpoints to a current fns");
 	puts("modify_del: remove the given endpoints of a current fns");
@@ -134,10 +134,13 @@ int main(int argc, char *argv[]) {
 
 		if (!strcmp(args[0], "connect")) {
 			int port = PORT_NOX;
-			if (nargs == 2)
-				port = atoi(args[1]);
+			char* address="127.0.0.1";
+			if (nargs == 3){
+				port = atoi(args[2]);
+				address = args[1];
+			}
 
-			libnetvirt_connect(info, "127.0.0.1", port);
+			libnetvirt_connect(info, address, port);
 		}
 		if (!strcmp(args[0], "create")) {
 			fns = parse_fns(args[1]);

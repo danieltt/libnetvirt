@@ -95,6 +95,12 @@ class endpoint(_object):
     __swig_setmethods__["vlan"] = _libnetvirt.endpoint_vlan_set
     __swig_getmethods__["vlan"] = _libnetvirt.endpoint_vlan_get
     if _newclass:vlan = _swig_property(_libnetvirt.endpoint_vlan_get, _libnetvirt.endpoint_vlan_set)
+    __swig_setmethods__["address"] = _libnetvirt.endpoint_address_set
+    __swig_getmethods__["address"] = _libnetvirt.endpoint_address_get
+    if _newclass:address = _swig_property(_libnetvirt.endpoint_address_get, _libnetvirt.endpoint_address_set)
+    __swig_setmethods__["mask"] = _libnetvirt.endpoint_mask_set
+    __swig_getmethods__["mask"] = _libnetvirt.endpoint_mask_get
+    if _newclass:mask = _swig_property(_libnetvirt.endpoint_mask_get, _libnetvirt.endpoint_mask_set)
     __swig_setmethods__["pad"] = _libnetvirt.endpoint_pad_set
     __swig_getmethods__["pad"] = _libnetvirt.endpoint_pad_get
     if _newclass:pad = _swig_property(_libnetvirt.endpoint_pad_get, _libnetvirt.endpoint_pad_set)

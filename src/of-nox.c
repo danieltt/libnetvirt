@@ -72,7 +72,7 @@ int start_server(char *address, int portno) {
 	of_nox_info.sockfd = server_sock_fd;
 
 	/*Start listening thread*/
-	pthread_create(&(of_nox_info.pth), NULL, process_events, 0);
+	//pthread_create(&(of_nox_info.pth), NULL, process_events, 0);
 
 	return 0;
 }
@@ -149,11 +149,11 @@ void* process_events(void *arg) {
 
 int send_msg(int sockfd, void* msg, int size) {
 	int n;
-	printf("Sending msg to %d\n", sockfd);
+	//printf("Sending msg to %d\n", sockfd);
 	n = write(sockfd, msg, size);
 	if (n < 0)
 		perror("ERROR writing to socket");
-	return 0;
+	return n;
 }
 void process_ids_msg(void *buf) {
 	struct msg_ids *msg = (struct msg_ids *) buf;
@@ -175,13 +175,14 @@ int of_nox_connect(char* addr, int port) {
 
 	if (of_nox_info.run)
 		return -1;
-	printf("Connection OF-NOX driver to: %s:%d\n", addr, port);
+	//printf("Connection OF-NOX driver to: %s:%d\n", addr, port);
 	of_nox_info.run = 1;
 	return start_server(addr, port);
 }
 
 int of_nox_stop(void) {
 	of_nox_info.run = 0;
+	close(of_nox_info.sockfd);
 	return 0;
 }
 
@@ -194,33 +195,37 @@ int of_nox_send_msg(fnsDesc *desc, int type) {
 	msg->type = type;
 	msg->size = size;
 	memcpy(&msg->fns, desc, GET_FNS_SIZE(desc->nEp, desc->nCons));
-	send_msg(of_nox_info.sockfd, (void *) buf, size);
+	if(send_msg(of_nox_info.sockfd, (void *) buf, size)){
+		/* Wait for answer*/
+		if(recv(of_nox_info.sockfd, buf, size, 0) == 0 )
+			printf("confirmation not received ");
+	}
 	if(buf)free(buf);
 	return 0;
 }
 
 int of_nox_instantiate_fns(fnsDesc *desc) {
-	printf("Processing request ...\n");
+//	printf("Processing request ...\n");
 	return of_nox_send_msg(desc, FNS_MSG_ADD);
 }
 
 int of_nox_remove_fns(fnsDesc *desc) {
-	printf("Processing remove ...\n");
+//	printf("Processing remove ...\n");
 	return of_nox_send_msg(desc, FNS_MSG_DEL);
 }
 
 int of_nox_modify_fns_add(fnsDesc *desc) {
-	printf("Processing modify ...\n");
+//	printf("Processing modify ...\n");
 	return of_nox_send_msg(desc, FNS_MSG_MOD_ADD);
 }
 
 int of_nox_modify_fns_del(fnsDesc *desc) {
-	printf("Processing modify ...\n");
+//	printf("Processing modify ...\n");
 	return of_nox_send_msg(desc, FNS_MSG_MOD_DEL);
 }
 
 int of_nox_request_ids(void) {
-	printf("Sending request ids ...\n");
+	//printf("Sending request ids ...\n");
 	struct msg_fns msg;
 	msg.type = FNS_MSG_SW_IDS;
 	msg.size = 0;

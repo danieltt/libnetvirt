@@ -44,7 +44,9 @@ typedef struct EndPoint {
 	uint16_t port;
 	uint32_t mpls;
 	uint16_t vlan;
-	uint8_t pad[8];
+	uint32_t address;
+	uint8_t mask;
+	uint8_t pad[2];
 } endpoint;
 
 typedef struct constraint {
