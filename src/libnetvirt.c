@@ -64,10 +64,12 @@ int libnetvirt_disconnect(struct libnetvirt_info* info) {
 
 int libnetvirt_stop(struct libnetvirt_info* info) {
 	int status;
+	if (!info)
+		return 0;
 	info->ops.stop();
 	wait(&status);
-	if (info)
-		free(info);
+
+	free(info);
 	return 0;
 }
 int libnetvirt_connect(struct libnetvirt_info* info, char* address, int port) {

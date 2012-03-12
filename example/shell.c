@@ -197,7 +197,7 @@ int main(int argc, char *argv[]) {
 	if(fns)
 		free(fns);
 	if(info)
-	libnetvirt_stop(info);
+		libnetvirt_stop(info);
 	return 0;
 
 }
