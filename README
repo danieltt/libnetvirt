@@ -93,7 +93,7 @@ cp python/libnetvirt.py PyOCNI/pyocni/backend/libnetvirt.py
 cp src/.libs/libnetvirt-0.1.so.1.0.2 PyOCNI/pyocni/backend/_libnetvirt.so 
 
 cd PyOCNI
-sudo python setup install
+sudo python setup.py install
 
 
 To install OpenFlow NOX controller (nox or nox11oflib)
@@ -117,10 +117,10 @@ cd nox11oflib/build/src
 Run the fns application:
  ./nox_core -i ptcp: fns
  
-For OCNI examples see libnetvirt
+For OCNI examples to use libnetvirt, look at the examples in:
 PyOCNI/README
 
-There is an example called shell that it is CLI to control the network
+There is an example code called shell that it is CLI to control the network
 To use go to examples and execute
 ./shell
 It processes XML files that describe the network:
