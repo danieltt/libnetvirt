@@ -75,6 +75,7 @@ sudo apt-get install python python-all-dev python-setuptools
 -----------------------
 Libnetvirt is composed with multiple parts and different git sources
 git clone git@bitbucket.org:dturull/libnetvirt.git
+cd libnetvirt
 git submodule init
 git submodule update
 
