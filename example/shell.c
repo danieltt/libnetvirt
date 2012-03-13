@@ -187,8 +187,6 @@ int main(int argc, char *argv[]) {
 		}
 		if (!strcmp(args[0], "disconnect")) {
 			libnetvirt_disconnect(info);
-			if(fns)
-				free(fns);
 		}
 
 	}
