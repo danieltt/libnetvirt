@@ -36,10 +36,16 @@
 #include <libxml/parser.h>
 #include "libnetvirt/libnetvirt.h"
 
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+
 endpoint*
 parseEndpoint(xmlDocPtr doc, xmlNsPtr ns, xmlNodePtr cur1) {
 	endpoint* ret = NULL;
 	xmlNodePtr cur = cur1;
+	struct in_addr ip;
+	int i;
 	/*
 	 * allocate the struct
 	 */
@@ -53,6 +59,8 @@ parseEndpoint(xmlDocPtr doc, xmlNsPtr ns, xmlNodePtr cur1) {
 	/* We don't care what the top level element name is */
 	ret->uuid = atoi((const char*) xmlGetProp(cur, (const xmlChar *) "uuid"));
 	ret->vlan = 0xffff;
+	ret->address=0;
+	ret->mask=0;
 	cur = cur->xmlChildrenNode;
 	while (cur != NULL) {
 		if ((!xmlStrcmp(cur->name, (const xmlChar *) "swId"))
@@ -75,15 +83,45 @@ parseEndpoint(xmlDocPtr doc, xmlNsPtr ns, xmlNodePtr cur1) {
 			ret->vlan = atoi((const char*) xmlNodeListGetString(doc,
 					cur->xmlChildrenNode, 1));
 		}
-		/*TODO add extra optional fileds*/
+		if ((!xmlStrcmp(cur->name, (const xmlChar *) "network")) && (cur->ns
+				== ns)) {
+			const char *network = (const char*) xmlNodeListGetString(doc,	cur->xmlChildrenNode, 1);
+			char address[15];
+			char *mask;
+
+			for(i=0;i<strlen(network) && i < 15;i++){
+				if(network[i]=='/'){
+					address[i]=0;
+					break;
+				}
+				address[i]=network[i];
+			}
+			if(i==strlen(network) && i == 15)
+				break;
+
+			mask = strndup(&network[i+1],strlen(network)-strlen(address)-1);
+			printf("network %s mask %s\n",address, mask);
+			ip.s_addr = ret->address;
+			inet_aton(address, (struct in_addr*) &ret->address);
+			printf("net %d\n",ret->address);
+
+
+
+			ret->mask=atoi(mask);
+			free(mask);
+			free(network);
+
+		}
+		/*TODO add extra optional fields*/
 
 		cur = cur->next;
 	}
 	return (ret);
 }
 
-constraint* parseConstraint(xmlDocPtr doc, xmlNsPtr ns, xmlNodePtr cur1) {
+constraint* parseConstraint(xmlDocPtr doc, xmlNsPtr ns, xmlNodePtr cur) {
 	constraint* ret = NULL;
+	char* type;
 	//xmlNodePtr cur = cur1;
 	/*
 	 * allocate the struct
@@ -94,6 +132,14 @@ constraint* parseConstraint(xmlDocPtr doc, xmlNsPtr ns, xmlNodePtr cur1) {
 		return (NULL);
 	}
 	memset(ret, 0, sizeof(constraint));
+	type = (const char*) xmlGetProp(cur, (const xmlChar *) "type");
+	if (!strcasecmp(type, "minbw"))
+		ret->type = LIBNETVIRT_CONSTRAINT_MINBW;
+	else if (!strcasecmp(type, "maxbw"))
+		ret->type = LIBNETVIRT_CONSTRAINT_MAXBW;
+	ret->src = atoi((const char*) xmlGetProp(cur, (const xmlChar *) "src"));
+	ret->dst = atoi((const char*) xmlGetProp(cur, (const xmlChar *) "dst"));
+	ret->value = atoi((const char*) xmlGetProp(cur, (const xmlChar *) "value"));
 
 	return ret;
 }
@@ -153,22 +199,22 @@ static fnsDesc* parseFNSdoc(xmlDocPtr doc) {
 				== ns)) {
 			nEp++;
 		}
-		if ((!xmlStrcmp(cur1->name, (const xmlChar *) "path")) && (cur1->ns
-				== ns)) {
+		if ((!xmlStrcmp(cur1->name, (const xmlChar *) "constraint"))
+				&& (cur1->ns == ns)) {
 			nCons++;
 		}
 		/*forwarding*/
 		cur1 = cur1->next;
 	}
 
-	ret = (fnsDesc*) malloc(GET_FNS_SIZE(nEp,0));
+	ret = (fnsDesc*) malloc(GET_FNS_SIZE(nEp,nCons));
 	if (ret == NULL) {
 		fprintf(stderr, "out of memory\n");
 		xmlFreeDoc(doc);
 		return (NULL);
 	}
 
-	memset(ret, 0, GET_FNS_SIZE(nEp,0));
+	memset(ret, 0, GET_FNS_SIZE(nEp,nCons));
 
 	/*get name*/
 	u_char* name = xmlGetProp(cur, (const xmlChar *) "name");
@@ -179,7 +225,9 @@ static fnsDesc* parseFNSdoc(xmlDocPtr doc) {
 
 	/* get uuid*/
 	ret->uuid = atoi((const char*) xmlGetProp(cur, (const xmlChar *) "uuid"));
+
 	ret->nEp = 0;
+	ret->nCons = 0;
 	cur = cur->xmlChildrenNode;
 	while (cur != NULL) {
 		/* endpoint */
@@ -198,10 +246,23 @@ static fnsDesc* parseFNSdoc(xmlDocPtr doc) {
 				== ns)) {
 			curCons = parseConstraint(doc, ns, cur);
 			if (curCons != NULL) {
-				/* TODO copy*/
+				memcpy(GET_CONSTRAINT(ret,ret->nCons), curCons,
+						sizeof(constraint));
+				ret->nCons++;
+				free(curCons);
 			}
 		}
 		/*forwarding*/
+		if ((!xmlStrcmp(cur->name, (const xmlChar *) "forwarding")) && (cur->ns
+				== ns)) {
+
+			const char* forwarding = (const char*) xmlNodeListGetString(doc,
+					cur->xmlChildrenNode, 1);
+			if (!strcasecmp(forwarding, "L2"))
+				ret->forwarding = LIBNETVIRT_FORWARDING_L2;
+			else if (!strcasecmp(forwarding, "L3"))
+				ret->forwarding = LIBNETVIRT_FORWARDING_L3;
+		}
 		cur = cur->next;
 	}
 
@@ -214,6 +275,14 @@ void printEndPoint(endpoint* ep) {
 	printf("\t port: %d\n", ep->port);
 	printf("\t vlan: %d\n", ep->vlan);
 	printf("\t mpls: %d\n", ep->mpls);
+//	if(ep->address)
+		//printf("\t network: %s/%d\n", inet_ntoa((struct in_addr*) &ep->address),ep->mask);
+}
+void printConstraint(constraint* cons) {
+	printf("Const Type: %d\n", cons->type);
+	printf("\t src id: %ld\n", cons->src);
+	printf("\t dst id: %ld\n", cons->dst);
+	printf("\t value: %ld\n", cons->value);
 }
 
 void printFNS(fnsDesc* cur) {
@@ -222,8 +291,13 @@ void printFNS(fnsDesc* cur) {
 		printf("name: %s\n", cur->name);
 	printf("Uuid: %lu\n", cur->uuid);
 	printf("Num Endpoints: %d\n", cur->nEp);
+	printf("Num Constraints: %d\n", cur->nCons);
+	printf("Forwarding: %d\n", cur->forwarding);
 	for (i = 0; i < cur->nEp; i++) {
 		printEndPoint((endpoint*) GET_ENDPOINT(cur, i));
+	}
+	for (i = 0; i < cur->nCons; i++) {
+		printConstraint((constraint*) GET_CONSTRAINT(cur, i));
 	}
 }
 

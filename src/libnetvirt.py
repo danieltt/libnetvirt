@@ -69,6 +69,10 @@ except AttributeError:
 DRIVER_OF_NOX = _libnetvirt.DRIVER_OF_NOX
 DRIVER_MPLS = _libnetvirt.DRIVER_MPLS
 DRIVER_DUMMY = _libnetvirt.DRIVER_DUMMY
+LIBNETVIRT_FORWARDING_L2 = _libnetvirt.LIBNETVIRT_FORWARDING_L2
+LIBNETVIRT_FORWARDING_L3 = _libnetvirt.LIBNETVIRT_FORWARDING_L3
+LIBNETVIRT_CONSTRAINT_MINBW = _libnetvirt.LIBNETVIRT_CONSTRAINT_MINBW
+LIBNETVIRT_CONSTRAINT_MAXBW = _libnetvirt.LIBNETVIRT_CONSTRAINT_MAXBW
 MAX_NAME_SIZE = _libnetvirt.MAX_NAME_SIZE
 class endpoint(_object):
     __swig_setmethods__ = {}
@@ -91,6 +95,12 @@ class endpoint(_object):
     __swig_setmethods__["vlan"] = _libnetvirt.endpoint_vlan_set
     __swig_getmethods__["vlan"] = _libnetvirt.endpoint_vlan_get
     if _newclass:vlan = _swig_property(_libnetvirt.endpoint_vlan_get, _libnetvirt.endpoint_vlan_set)
+    __swig_setmethods__["address"] = _libnetvirt.endpoint_address_set
+    __swig_getmethods__["address"] = _libnetvirt.endpoint_address_get
+    if _newclass:address = _swig_property(_libnetvirt.endpoint_address_get, _libnetvirt.endpoint_address_set)
+    __swig_setmethods__["mask"] = _libnetvirt.endpoint_mask_set
+    __swig_getmethods__["mask"] = _libnetvirt.endpoint_mask_get
+    if _newclass:mask = _swig_property(_libnetvirt.endpoint_mask_get, _libnetvirt.endpoint_mask_set)
     __swig_setmethods__["pad"] = _libnetvirt.endpoint_pad_set
     __swig_getmethods__["pad"] = _libnetvirt.endpoint_pad_get
     if _newclass:pad = _swig_property(_libnetvirt.endpoint_pad_get, _libnetvirt.endpoint_pad_set)
@@ -109,18 +119,18 @@ class constraint(_object):
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, constraint, name)
     __repr__ = _swig_repr
+    __swig_setmethods__["type"] = _libnetvirt.constraint_type_set
+    __swig_getmethods__["type"] = _libnetvirt.constraint_type_get
+    if _newclass:type = _swig_property(_libnetvirt.constraint_type_get, _libnetvirt.constraint_type_set)
     __swig_setmethods__["src"] = _libnetvirt.constraint_src_set
     __swig_getmethods__["src"] = _libnetvirt.constraint_src_get
     if _newclass:src = _swig_property(_libnetvirt.constraint_src_get, _libnetvirt.constraint_src_set)
     __swig_setmethods__["dst"] = _libnetvirt.constraint_dst_set
     __swig_getmethods__["dst"] = _libnetvirt.constraint_dst_get
     if _newclass:dst = _swig_property(_libnetvirt.constraint_dst_get, _libnetvirt.constraint_dst_set)
-    __swig_setmethods__["minBW"] = _libnetvirt.constraint_minBW_set
-    __swig_getmethods__["minBW"] = _libnetvirt.constraint_minBW_get
-    if _newclass:minBW = _swig_property(_libnetvirt.constraint_minBW_get, _libnetvirt.constraint_minBW_set)
-    __swig_setmethods__["maxBW"] = _libnetvirt.constraint_maxBW_set
-    __swig_getmethods__["maxBW"] = _libnetvirt.constraint_maxBW_get
-    if _newclass:maxBW = _swig_property(_libnetvirt.constraint_maxBW_get, _libnetvirt.constraint_maxBW_set)
+    __swig_setmethods__["value"] = _libnetvirt.constraint_value_set
+    __swig_getmethods__["value"] = _libnetvirt.constraint_value_get
+    if _newclass:value = _swig_property(_libnetvirt.constraint_value_get, _libnetvirt.constraint_value_set)
     def __init__(self): 
         this = _libnetvirt.new_constraint()
         try: self.this.append(this)

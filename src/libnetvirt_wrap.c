@@ -2964,6 +2964,29 @@ SWIG_From_unsigned_SS_int  (unsigned int value)
 }
 
 
+SWIGINTERN int
+SWIG_AsVal_unsigned_SS_char (PyObject * obj, unsigned char *val)
+{
+  unsigned long v;
+  int res = SWIG_AsVal_unsigned_SS_long (obj, &v);
+  if (SWIG_IsOK(res)) {
+    if ((v > UCHAR_MAX)) {
+      return SWIG_OverflowError;
+    } else {
+      if (val) *val = (unsigned char)(v);
+    }
+  }  
+  return res;
+}
+
+
+SWIGINTERNINLINE PyObject *
+SWIG_From_unsigned_SS_char  (unsigned char value)
+{    
+  return SWIG_From_unsigned_SS_long  (value);
+}
+
+
 SWIGINTERN swig_type_info*
 SWIG_pchar_descriptor(void)
 {
@@ -3095,29 +3118,6 @@ SWIG_FromCharPtrAndSize(const char* carray, size_t size)
   } else {
     return SWIG_Py_Void();
   }
-}
-
-
-SWIGINTERN int
-SWIG_AsVal_unsigned_SS_char (PyObject * obj, unsigned char *val)
-{
-  unsigned long v;
-  int res = SWIG_AsVal_unsigned_SS_long (obj, &v);
-  if (SWIG_IsOK(res)) {
-    if ((v > UCHAR_MAX)) {
-      return SWIG_OverflowError;
-    } else {
-      if (val) *val = (unsigned char)(v);
-    }
-  }  
-  return res;
-}
-
-
-SWIGINTERNINLINE PyObject *
-SWIG_From_unsigned_SS_char  (unsigned char value)
-{    
-  return SWIG_From_unsigned_SS_long  (value);
 }
 
 
@@ -3444,6 +3444,110 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_endpoint_address_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  endpoint *arg1 = (endpoint *) 0 ;
+  uint32_t arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned int val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:endpoint_address_set",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_EndPoint, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "endpoint_address_set" "', argument " "1"" of type '" "endpoint *""'"); 
+  }
+  arg1 = (endpoint *)(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_int(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "endpoint_address_set" "', argument " "2"" of type '" "uint32_t""'");
+  } 
+  arg2 = (uint32_t)(val2);
+  if (arg1) (arg1)->address = arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_endpoint_address_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  endpoint *arg1 = (endpoint *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  uint32_t result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:endpoint_address_get",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_EndPoint, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "endpoint_address_get" "', argument " "1"" of type '" "endpoint *""'"); 
+  }
+  arg1 = (endpoint *)(argp1);
+  result = (uint32_t) ((arg1)->address);
+  resultobj = SWIG_From_unsigned_SS_int((unsigned int)(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_endpoint_mask_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  endpoint *arg1 = (endpoint *) 0 ;
+  uint8_t arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned char val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:endpoint_mask_set",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_EndPoint, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "endpoint_mask_set" "', argument " "1"" of type '" "endpoint *""'"); 
+  }
+  arg1 = (endpoint *)(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_char(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "endpoint_mask_set" "', argument " "2"" of type '" "uint8_t""'");
+  } 
+  arg2 = (uint8_t)(val2);
+  if (arg1) (arg1)->mask = arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_endpoint_mask_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  endpoint *arg1 = (endpoint *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  uint8_t result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:endpoint_mask_get",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_EndPoint, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "endpoint_mask_get" "', argument " "1"" of type '" "endpoint *""'"); 
+  }
+  arg1 = (endpoint *)(argp1);
+  result = (uint8_t) ((arg1)->mask);
+  resultobj = SWIG_From_unsigned_SS_char((unsigned char)(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_endpoint_pad_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   endpoint *arg1 = (endpoint *) 0 ;
@@ -3463,15 +3567,15 @@ SWIGINTERN PyObject *_wrap_endpoint_pad_set(PyObject *SWIGUNUSEDPARM(self), PyOb
   arg1 = (endpoint *)(argp1);
   res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_unsigned_char, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "endpoint_pad_set" "', argument " "2"" of type '" "uint8_t [8]""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "endpoint_pad_set" "', argument " "2"" of type '" "uint8_t [2]""'"); 
   } 
   arg2 = (uint8_t *)(argp2);
   {
     if (arg2) {
       size_t ii = 0;
-      for (; ii < (size_t)8; ++ii) arg1->pad[ii] = arg2[ii];
+      for (; ii < (size_t)2; ++ii) arg1->pad[ii] = arg2[ii];
     } else {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in variable '""pad""' of type '""uint8_t [8]""'");
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in variable '""pad""' of type '""uint8_t [2]""'");
     }
   }
   resultobj = SWIG_Py_Void();
@@ -3543,6 +3647,58 @@ SWIGINTERN PyObject *endpoint_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObj
   SWIG_TypeNewClientData(SWIGTYPE_p_EndPoint, SWIG_NewClientData(obj));
   return SWIG_Py_Void();
 }
+
+SWIGINTERN PyObject *_wrap_constraint_type_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  constraint *arg1 = (constraint *) 0 ;
+  uint8_t arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned char val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:constraint_type_set",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_constraint, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "constraint_type_set" "', argument " "1"" of type '" "constraint *""'"); 
+  }
+  arg1 = (constraint *)(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_char(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "constraint_type_set" "', argument " "2"" of type '" "uint8_t""'");
+  } 
+  arg2 = (uint8_t)(val2);
+  if (arg1) (arg1)->type = arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_constraint_type_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  constraint *arg1 = (constraint *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  uint8_t result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:constraint_type_get",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_constraint, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "constraint_type_get" "', argument " "1"" of type '" "constraint *""'"); 
+  }
+  arg1 = (constraint *)(argp1);
+  result = (uint8_t) ((arg1)->type);
+  resultobj = SWIG_From_unsigned_SS_char((unsigned char)(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
 
 SWIGINTERN PyObject *_wrap_constraint_src_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
@@ -3648,7 +3804,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_constraint_minBW_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_constraint_value_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   constraint *arg1 = (constraint *) 0 ;
   uint32_t arg2 ;
@@ -3659,18 +3815,18 @@ SWIGINTERN PyObject *_wrap_constraint_minBW_set(PyObject *SWIGUNUSEDPARM(self), 
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OO:constraint_minBW_set",&obj0,&obj1)) SWIG_fail;
+  if (!PyArg_ParseTuple(args,(char *)"OO:constraint_value_set",&obj0,&obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_constraint, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "constraint_minBW_set" "', argument " "1"" of type '" "constraint *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "constraint_value_set" "', argument " "1"" of type '" "constraint *""'"); 
   }
   arg1 = (constraint *)(argp1);
   ecode2 = SWIG_AsVal_unsigned_SS_int(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "constraint_minBW_set" "', argument " "2"" of type '" "uint32_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "constraint_value_set" "', argument " "2"" of type '" "uint32_t""'");
   } 
   arg2 = (uint32_t)(val2);
-  if (arg1) (arg1)->minBW = arg2;
+  if (arg1) (arg1)->value = arg2;
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -3678,7 +3834,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_constraint_minBW_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_constraint_value_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   constraint *arg1 = (constraint *) 0 ;
   void *argp1 = 0 ;
@@ -3686,65 +3842,13 @@ SWIGINTERN PyObject *_wrap_constraint_minBW_get(PyObject *SWIGUNUSEDPARM(self), 
   PyObject * obj0 = 0 ;
   uint32_t result;
   
-  if (!PyArg_ParseTuple(args,(char *)"O:constraint_minBW_get",&obj0)) SWIG_fail;
+  if (!PyArg_ParseTuple(args,(char *)"O:constraint_value_get",&obj0)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_constraint, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "constraint_minBW_get" "', argument " "1"" of type '" "constraint *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "constraint_value_get" "', argument " "1"" of type '" "constraint *""'"); 
   }
   arg1 = (constraint *)(argp1);
-  result = (uint32_t) ((arg1)->minBW);
-  resultobj = SWIG_From_unsigned_SS_int((unsigned int)(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_constraint_maxBW_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  constraint *arg1 = (constraint *) 0 ;
-  uint32_t arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  unsigned int val2 ;
-  int ecode2 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OO:constraint_maxBW_set",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_constraint, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "constraint_maxBW_set" "', argument " "1"" of type '" "constraint *""'"); 
-  }
-  arg1 = (constraint *)(argp1);
-  ecode2 = SWIG_AsVal_unsigned_SS_int(obj1, &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "constraint_maxBW_set" "', argument " "2"" of type '" "uint32_t""'");
-  } 
-  arg2 = (uint32_t)(val2);
-  if (arg1) (arg1)->maxBW = arg2;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_constraint_maxBW_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  constraint *arg1 = (constraint *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  uint32_t result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:constraint_maxBW_get",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_constraint, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "constraint_maxBW_get" "', argument " "1"" of type '" "constraint *""'"); 
-  }
-  arg1 = (constraint *)(argp1);
-  result = (uint32_t) ((arg1)->maxBW);
+  result = (uint32_t) ((arg1)->value);
   resultobj = SWIG_From_unsigned_SS_int((unsigned int)(result));
   return resultobj;
 fail:
@@ -5368,19 +5472,23 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"endpoint_mpls_get", _wrap_endpoint_mpls_get, METH_VARARGS, NULL},
 	 { (char *)"endpoint_vlan_set", _wrap_endpoint_vlan_set, METH_VARARGS, NULL},
 	 { (char *)"endpoint_vlan_get", _wrap_endpoint_vlan_get, METH_VARARGS, NULL},
+	 { (char *)"endpoint_address_set", _wrap_endpoint_address_set, METH_VARARGS, NULL},
+	 { (char *)"endpoint_address_get", _wrap_endpoint_address_get, METH_VARARGS, NULL},
+	 { (char *)"endpoint_mask_set", _wrap_endpoint_mask_set, METH_VARARGS, NULL},
+	 { (char *)"endpoint_mask_get", _wrap_endpoint_mask_get, METH_VARARGS, NULL},
 	 { (char *)"endpoint_pad_set", _wrap_endpoint_pad_set, METH_VARARGS, NULL},
 	 { (char *)"endpoint_pad_get", _wrap_endpoint_pad_get, METH_VARARGS, NULL},
 	 { (char *)"new_endpoint", _wrap_new_endpoint, METH_VARARGS, NULL},
 	 { (char *)"delete_endpoint", _wrap_delete_endpoint, METH_VARARGS, NULL},
 	 { (char *)"endpoint_swigregister", endpoint_swigregister, METH_VARARGS, NULL},
+	 { (char *)"constraint_type_set", _wrap_constraint_type_set, METH_VARARGS, NULL},
+	 { (char *)"constraint_type_get", _wrap_constraint_type_get, METH_VARARGS, NULL},
 	 { (char *)"constraint_src_set", _wrap_constraint_src_set, METH_VARARGS, NULL},
 	 { (char *)"constraint_src_get", _wrap_constraint_src_get, METH_VARARGS, NULL},
 	 { (char *)"constraint_dst_set", _wrap_constraint_dst_set, METH_VARARGS, NULL},
 	 { (char *)"constraint_dst_get", _wrap_constraint_dst_get, METH_VARARGS, NULL},
-	 { (char *)"constraint_minBW_set", _wrap_constraint_minBW_set, METH_VARARGS, NULL},
-	 { (char *)"constraint_minBW_get", _wrap_constraint_minBW_get, METH_VARARGS, NULL},
-	 { (char *)"constraint_maxBW_set", _wrap_constraint_maxBW_set, METH_VARARGS, NULL},
-	 { (char *)"constraint_maxBW_get", _wrap_constraint_maxBW_get, METH_VARARGS, NULL},
+	 { (char *)"constraint_value_set", _wrap_constraint_value_set, METH_VARARGS, NULL},
+	 { (char *)"constraint_value_get", _wrap_constraint_value_get, METH_VARARGS, NULL},
 	 { (char *)"new_constraint", _wrap_new_constraint, METH_VARARGS, NULL},
 	 { (char *)"delete_constraint", _wrap_delete_constraint, METH_VARARGS, NULL},
 	 { (char *)"constraint_swigregister", constraint_swigregister, METH_VARARGS, NULL},
@@ -6122,6 +6230,10 @@ SWIG_init(void) {
   SWIG_Python_SetConstant(d, "DRIVER_OF_NOX",SWIG_From_int((int)(1)));
   SWIG_Python_SetConstant(d, "DRIVER_MPLS",SWIG_From_int((int)(2)));
   SWIG_Python_SetConstant(d, "DRIVER_DUMMY",SWIG_From_int((int)(3)));
+  SWIG_Python_SetConstant(d, "LIBNETVIRT_FORWARDING_L2",SWIG_From_int((int)(2)));
+  SWIG_Python_SetConstant(d, "LIBNETVIRT_FORWARDING_L3",SWIG_From_int((int)(3)));
+  SWIG_Python_SetConstant(d, "LIBNETVIRT_CONSTRAINT_MINBW",SWIG_From_int((int)(1)));
+  SWIG_Python_SetConstant(d, "LIBNETVIRT_CONSTRAINT_MAXBW",SWIG_From_int((int)(2)));
   SWIG_Python_SetConstant(d, "MAX_NAME_SIZE",SWIG_From_int((int)(20)));
 #if PY_VERSION_HEX >= 0x03000000
   return m;
