@@ -29,7 +29,7 @@ extern "C" {
 
 #define TCP_PORT  2000
 #define MSG_SIZE  1480
-#define MAX_CONNECTIONS  1
+#define MAX_CONNECTIONS  10
 #define SELECT_TIMEOUT 2
 
 #define FNS_MSG_ADD 1

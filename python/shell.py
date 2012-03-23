@@ -18,7 +18,8 @@
 
 import libnetvirt
 info = libnetvirt.libnetvirt_init(libnetvirt.DRIVER_OF_NOX)
-libnetvirt.libnetvirt_connect(info, "127.0.0.1",2000) 
+for num in range(1,10000):
+	libnetvirt.libnetvirt_connect(info, "127.0.0.1",2000) 
 fns_xml ="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\
 	<description xmlns=\"http://www.sail-project.eu/fns\">\
 	<fns name=\"two-fns\" uuid=\"1\">\

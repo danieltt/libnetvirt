@@ -34,7 +34,7 @@ else:
 	
 start = datetime.now()
 for num in range(1,n):
-	libnetvirt.libnetvirt_connect(info, "127.0.0.1",2000) 
+	libnetvirt.libnetvirt_connect(info, address,2000) 
 	fns_xml ="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\
 	<description xmlns=\"http://www.sail-project.eu/fns\">\
 	<fns name=\"testing\" uuid=\"%d\">\
