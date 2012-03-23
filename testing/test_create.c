@@ -41,10 +41,11 @@ int main(int argc, char *argv[]) {
 	info = libnetvirt_init(DRIVER_OF_NOX);
 
 	fnsDesc* fns = NULL;
-	char* address="127.0.0.1";
-	if (argc == 2)
+	char* address;
+	if (argc == 2){
 		n = atoi(argv[1]);
-	else if (argc == 3)
+		address="127.0.0.1";
+	}else if (argc == 3)
 	{
 		n = atoi(argv[1]);
 		address = argv[2];
@@ -52,6 +53,7 @@ int main(int argc, char *argv[]) {
 	else
 		exit(0);
 
+	printf("Connecting to %s:2000\n",address);
 	fnsDesc* fns2;
 	int errors=0;
 	int value = 1;
@@ -64,8 +66,8 @@ int main(int argc, char *argv[]) {
 		libnetvirt_connect(info, address,2000);
 		value = i + 1;
 		fns2 = create_local_fns(i, 2,"name-testing");
-		add_local_epoint(fns2, 0, value, value, 1, 0, 0); /*fns, pos, uuid, swid, port, vlan, mpls */
-		add_local_epoint(fns2, 1, value, value, 2, 0, 0);
+		add_local_epoint(fns2, 0, value, value, 1, 65535, 0); /*fns, pos, uuid, swid, port, vlan, mpls */
+		add_local_epoint(fns2, 1, value, value, 2, 65535, 0);
 
 		if (fns2){
 			//printFNS(fns2);
