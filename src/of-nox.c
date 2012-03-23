@@ -57,12 +57,12 @@ int start_server(char *address, int portno) {
 	serv_addr.sin_addr.s_addr = inet_addr(address);
 	serv_addr.sin_port = htons(portno);
 
-/*	if (setsockopt(server_sock_fd, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int))
+	if (setsockopt(server_sock_fd, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int))
 			== -1) {
 		perror("ERROR on setsockopt()");
 		return -1;
 	}
-*/
+
 	/*Connect to server*/
 	if (connect(server_sock_fd, (struct sockaddr *) &serv_addr,
 			sizeof(serv_addr)) == -1) {
