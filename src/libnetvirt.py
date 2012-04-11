@@ -71,6 +71,7 @@ DRIVER_MPLS = _libnetvirt.DRIVER_MPLS
 DRIVER_DUMMY = _libnetvirt.DRIVER_DUMMY
 LIBNETVIRT_FORWARDING_L2 = _libnetvirt.LIBNETVIRT_FORWARDING_L2
 LIBNETVIRT_FORWARDING_L3 = _libnetvirt.LIBNETVIRT_FORWARDING_L3
+LIBNETVIRT_FORWARDING_L3VPN = _libnetvirt.LIBNETVIRT_FORWARDING_L3VPN
 LIBNETVIRT_CONSTRAINT_MINBW = _libnetvirt.LIBNETVIRT_CONSTRAINT_MINBW
 LIBNETVIRT_CONSTRAINT_MAXBW = _libnetvirt.LIBNETVIRT_CONSTRAINT_MAXBW
 MAX_NAME_SIZE = _libnetvirt.MAX_NAME_SIZE
@@ -98,6 +99,9 @@ class endpoint(_object):
     __swig_setmethods__["address"] = _libnetvirt.endpoint_address_set
     __swig_getmethods__["address"] = _libnetvirt.endpoint_address_get
     if _newclass:address = _swig_property(_libnetvirt.endpoint_address_get, _libnetvirt.endpoint_address_set)
+    __swig_setmethods__["addressEx"] = _libnetvirt.endpoint_addressEx_set
+    __swig_getmethods__["addressEx"] = _libnetvirt.endpoint_addressEx_get
+    if _newclass:addressEx = _swig_property(_libnetvirt.endpoint_addressEx_get, _libnetvirt.endpoint_addressEx_set)
     __swig_setmethods__["mask"] = _libnetvirt.endpoint_mask_set
     __swig_getmethods__["mask"] = _libnetvirt.endpoint_mask_get
     if _newclass:mask = _swig_property(_libnetvirt.endpoint_mask_get, _libnetvirt.endpoint_mask_set)
@@ -316,6 +320,22 @@ getMplsFromEp = _libnetvirt.getMplsFromEp
 def getVlanFromEp(*args):
   return _libnetvirt.getVlanFromEp(*args)
 getVlanFromEp = _libnetvirt.getVlanFromEp
+
+def getNetFromEp(*args):
+  return _libnetvirt.getNetFromEp(*args)
+getNetFromEp = _libnetvirt.getNetFromEp
+
+def getMaskFromEp(*args):
+  return _libnetvirt.getMaskFromEp(*args)
+getMaskFromEp = _libnetvirt.getMaskFromEp
+
+def getAddressPEFromEp(*args):
+  return _libnetvirt.getAddressPEFromEp(*args)
+getAddressPEFromEp = _libnetvirt.getAddressPEFromEp
+
+def getAddressCEFromEp(*args):
+  return _libnetvirt.getAddressCEFromEp(*args)
+getAddressCEFromEp = _libnetvirt.getAddressCEFromEp
 
 def printFNS(*args):
   return _libnetvirt.printFNS(*args)

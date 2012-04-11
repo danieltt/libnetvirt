@@ -112,9 +112,25 @@ parseEndpoint(xmlDocPtr doc, xmlNsPtr ns, xmlNodePtr cur1) {
 			free(network);
 
 		}
+
+		/*PE and CE addresses for L3 VPN*/
+		if ((!xmlStrcmp(cur->name, (const xmlChar *) "addressPE")) && (cur->ns
+				== ns)) {
+			const char *network = (const char*) xmlNodeListGetString(doc,	cur->xmlChildrenNode, 1);
+			inet_aton(network, (struct in_addr*) &ret->address);
+			free(network);
+		}
+		if ((!xmlStrcmp(cur->name, (const xmlChar *) "addressCE")) && (cur->ns
+				== ns)) {
+			const char *network = (const char*) xmlNodeListGetString(doc,	cur->xmlChildrenNode, 1);
+			inet_aton(network, (struct in_addr*) &ret->addressEx);
+			free(network);
+
+		}
 		/*TODO add extra optional fields*/
 
 		cur = cur->next;
+
 	}
 	return (ret);
 }

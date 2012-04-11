@@ -77,51 +77,56 @@ int dummy_stop(void) {
 	}
 	return 0;
 }
-int dummy_instantiate_fns(fnsDesc *desc) {
+
+int python_fns(char* function,fnsDesc *desc){
 	PyObject *pFunc = NULL, *pValue= NULL, *pArg = NULL;
-	if (!Py_IsInitialized())
-		return -1;
-	SWIG_init();		// Initialise SWIG types
+		int ret=0;
+		if (!Py_IsInitialized())
+			return -1;
+		SWIG_init();		// Initialise SWIG types
 
-	if (info_dummy.pModule != NULL) {
-		pFunc = PyObject_GetAttrString(info_dummy.pModule, "dummy_create_fns");
-		if (pFunc && PyCallable_Check(pFunc)) {
-			pArg = SWIG_NewPointerObj(SWIG_as_voidptr(desc), SWIGTYPE_p_fns_desc, SWIG_POINTER_NEW |  0 );
-			if (pArg) {
-				pValue = PyObject_CallFunction(pFunc, "O", pArg);
-			}
-			if (pValue != NULL) {
-				printf("Result of call: %ld\n", PyInt_AsLong(pValue));
-				Py_DECREF(pValue);
+		if (info_dummy.pModule != NULL) {
+			pFunc = PyObject_GetAttrString(info_dummy.pModule, function);
+			if (pFunc && PyCallable_Check(pFunc)) {
+				pArg = SWIG_NewPointerObj(SWIG_as_voidptr(desc), SWIGTYPE_p_fns_desc, SWIG_POINTER_NEW |  0 );
+				if (pArg) {
+					pValue = PyObject_CallFunction(pFunc, "O", pArg);
+				}
+				if (pValue != NULL) {
+					ret =  PyInt_AsLong(pValue);
+					printf("Result of call: %ld\n",ret);
+					Py_DECREF(pValue);
+				} else {
+					Py_DECREF(pFunc);
+					PyErr_Print();
+					fprintf(stderr, "Call failed\n");
+					return -1;
+				}
 			} else {
-				Py_DECREF(pFunc);
-				PyErr_Print();
-				fprintf(stderr, "Call failed\n");
-				return 1;
+				if (PyErr_Occurred())
+					PyErr_Print();
+				fprintf(stderr, "Cannot find function \n");
 			}
+			Py_XDECREF(pFunc);
+
 		} else {
-			if (PyErr_Occurred())
-				PyErr_Print();
-			fprintf(stderr, "Cannot find function \n");
+			PyErr_Print();
+			fprintf(stderr, "Failed to load \"%s\"\n", DUMMY_SCRIPT);
 		}
-		Py_XDECREF(pFunc);
-
-	} else {
-		PyErr_Print();
-		fprintf(stderr, "Failed to load \"%s\"\n", DUMMY_SCRIPT);
-	}
-
-	return 0;
+		return ret;
+}
+int dummy_instantiate_fns(fnsDesc *desc) {
+	return python_fns("dummy_create_fns",desc);
 }
 int dummy_remove_fns(fnsDesc *desc) {
-	return 0;
+	return python_fns("dummy_remove_fns",desc);
 }
 int dummy_modify_fns_add(fnsDesc *desc) {
-	return 0;
+	return python_fns("dummy_modify_fns_add",desc);
 }
 int dummy_modify_fns_del(fnsDesc *desc) {
-	return 0;
+	return python_fns("dummy_modify_fns_del",desc);
 }
 int dummy_request_ids(void) {
-	return 0;
+	return python_fns("dummy_request_ids",desc);
 }

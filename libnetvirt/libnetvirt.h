@@ -32,6 +32,7 @@ extern "C" {
 
 #define LIBNETVIRT_FORWARDING_L2 2
 #define LIBNETVIRT_FORWARDING_L3 3
+#define LIBNETVIRT_FORWARDING_L3VPN 4
 
 #define LIBNETVIRT_CONSTRAINT_MINBW 1
 #define LIBNETVIRT_CONSTRAINT_MAXBW 2
@@ -45,6 +46,7 @@ typedef struct EndPoint {
 	uint32_t mpls;
 	uint16_t vlan;
 	uint32_t address;
+	uint32_t addressEx;
 	uint8_t mask;
 	uint8_t pad[2];
 } endpoint;
@@ -125,6 +127,10 @@ uint64_t getSwIdFromEp(endpoint* ep);
 uint16_t getPortFromEp(endpoint* ep);
 uint32_t getMplsFromEp(endpoint* ep);
 uint16_t getVlanFromEp(endpoint* ep);
+uint32_t getNetFromEp(endpoint* ep);
+uint8_t getMaskFromEp(endpoint* ep);
+uint32_t getAddressPEFromEp(endpoint* ep);
+uint32_t getAddressCEFromEp(endpoint* ep);
 
 extern void printFNS(fnsDesc *cur);
 /*Substrate functions*/

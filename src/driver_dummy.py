@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this library.  If not, see <http://www.gnu.org/licenses/>.
 import libnetvirt
+import socket,struct
 
 def dummy_connect(addr,port):
     print "connect to " +addr
@@ -34,8 +35,11 @@ def dummy_create_fns(desc):
         print "\t swid ", libnetvirt.getSwIdFromEp(ep)
         print "\t port", libnetvirt.getPortFromEp(ep)
         print "\t vlan", libnetvirt.getVlanFromEp(ep)
+        print "\t PE: ", socket.inet_ntoa(struct.pack('I', libnetvirt.getAddressPEFromEp(ep)))
+        print "\t CE:", socket.inet_ntoa(struct.pack('I', libnetvirt.getAddressCEFromEp(ep)))
 
     print "create"
+    return 0
     
 def dummy_remove_fns(desc):
     print "remove"

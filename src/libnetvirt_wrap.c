@@ -3496,6 +3496,58 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_endpoint_addressEx_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  endpoint *arg1 = (endpoint *) 0 ;
+  uint32_t arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned int val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:endpoint_addressEx_set",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_EndPoint, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "endpoint_addressEx_set" "', argument " "1"" of type '" "endpoint *""'"); 
+  }
+  arg1 = (endpoint *)(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_int(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "endpoint_addressEx_set" "', argument " "2"" of type '" "uint32_t""'");
+  } 
+  arg2 = (uint32_t)(val2);
+  if (arg1) (arg1)->addressEx = arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_endpoint_addressEx_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  endpoint *arg1 = (endpoint *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  uint32_t result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:endpoint_addressEx_get",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_EndPoint, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "endpoint_addressEx_get" "', argument " "1"" of type '" "endpoint *""'"); 
+  }
+  arg1 = (endpoint *)(argp1);
+  result = (uint32_t) ((arg1)->addressEx);
+  resultobj = SWIG_From_unsigned_SS_int((unsigned int)(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_endpoint_mask_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   endpoint *arg1 = (endpoint *) 0 ;
@@ -5439,6 +5491,94 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_getNetFromEp(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  endpoint *arg1 = (endpoint *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  uint32_t result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:getNetFromEp",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_EndPoint, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "getNetFromEp" "', argument " "1"" of type '" "endpoint *""'"); 
+  }
+  arg1 = (endpoint *)(argp1);
+  result = (uint32_t)getNetFromEp(arg1);
+  resultobj = SWIG_From_unsigned_SS_int((unsigned int)(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_getMaskFromEp(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  endpoint *arg1 = (endpoint *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  uint8_t result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:getMaskFromEp",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_EndPoint, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "getMaskFromEp" "', argument " "1"" of type '" "endpoint *""'"); 
+  }
+  arg1 = (endpoint *)(argp1);
+  result = (uint8_t)getMaskFromEp(arg1);
+  resultobj = SWIG_From_unsigned_SS_char((unsigned char)(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_getAddressPEFromEp(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  endpoint *arg1 = (endpoint *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  uint32_t result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:getAddressPEFromEp",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_EndPoint, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "getAddressPEFromEp" "', argument " "1"" of type '" "endpoint *""'"); 
+  }
+  arg1 = (endpoint *)(argp1);
+  result = (uint32_t)getAddressPEFromEp(arg1);
+  resultobj = SWIG_From_unsigned_SS_int((unsigned int)(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_getAddressCEFromEp(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  endpoint *arg1 = (endpoint *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  uint32_t result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:getAddressCEFromEp",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_EndPoint, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "getAddressCEFromEp" "', argument " "1"" of type '" "endpoint *""'"); 
+  }
+  arg1 = (endpoint *)(argp1);
+  result = (uint32_t)getAddressCEFromEp(arg1);
+  resultobj = SWIG_From_unsigned_SS_int((unsigned int)(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_printFNS(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   fnsDesc *arg1 = (fnsDesc *) 0 ;
@@ -5474,6 +5614,8 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"endpoint_vlan_get", _wrap_endpoint_vlan_get, METH_VARARGS, NULL},
 	 { (char *)"endpoint_address_set", _wrap_endpoint_address_set, METH_VARARGS, NULL},
 	 { (char *)"endpoint_address_get", _wrap_endpoint_address_get, METH_VARARGS, NULL},
+	 { (char *)"endpoint_addressEx_set", _wrap_endpoint_addressEx_set, METH_VARARGS, NULL},
+	 { (char *)"endpoint_addressEx_get", _wrap_endpoint_addressEx_get, METH_VARARGS, NULL},
 	 { (char *)"endpoint_mask_set", _wrap_endpoint_mask_set, METH_VARARGS, NULL},
 	 { (char *)"endpoint_mask_get", _wrap_endpoint_mask_get, METH_VARARGS, NULL},
 	 { (char *)"endpoint_pad_set", _wrap_endpoint_pad_set, METH_VARARGS, NULL},
@@ -5553,6 +5695,10 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"getPortFromEp", _wrap_getPortFromEp, METH_VARARGS, NULL},
 	 { (char *)"getMplsFromEp", _wrap_getMplsFromEp, METH_VARARGS, NULL},
 	 { (char *)"getVlanFromEp", _wrap_getVlanFromEp, METH_VARARGS, NULL},
+	 { (char *)"getNetFromEp", _wrap_getNetFromEp, METH_VARARGS, NULL},
+	 { (char *)"getMaskFromEp", _wrap_getMaskFromEp, METH_VARARGS, NULL},
+	 { (char *)"getAddressPEFromEp", _wrap_getAddressPEFromEp, METH_VARARGS, NULL},
+	 { (char *)"getAddressCEFromEp", _wrap_getAddressCEFromEp, METH_VARARGS, NULL},
 	 { (char *)"printFNS", _wrap_printFNS, METH_VARARGS, NULL},
 	 { NULL, NULL, 0, NULL }
 };
@@ -6232,6 +6378,7 @@ SWIG_init(void) {
   SWIG_Python_SetConstant(d, "DRIVER_DUMMY",SWIG_From_int((int)(3)));
   SWIG_Python_SetConstant(d, "LIBNETVIRT_FORWARDING_L2",SWIG_From_int((int)(2)));
   SWIG_Python_SetConstant(d, "LIBNETVIRT_FORWARDING_L3",SWIG_From_int((int)(3)));
+  SWIG_Python_SetConstant(d, "LIBNETVIRT_FORWARDING_L3VPN",SWIG_From_int((int)(4)));
   SWIG_Python_SetConstant(d, "LIBNETVIRT_CONSTRAINT_MINBW",SWIG_From_int((int)(1)));
   SWIG_Python_SetConstant(d, "LIBNETVIRT_CONSTRAINT_MAXBW",SWIG_From_int((int)(2)));
   SWIG_Python_SetConstant(d, "MAX_NAME_SIZE",SWIG_From_int((int)(20)));

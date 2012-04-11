@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<description xmlns="http://www.sail-project.eu/fns">
+	<fns name="simple-fns" uuid="2">
+		<endpoint uuid="1">
+			<swId>1</swId>
+			<addressPE>10.0.3.1</addressPE>
+			<addressCE>10.0.3.2</addressCE>
+		</endpoint>
+		<endpoint uuid="4">
+			<swId>4</swId>
+			<addressPE>10.0.4.1</addressPE>
+			<addressCE>10.0.4.2</addressCE>
+		</endpoint>
+		<forwarding>L3VPN</forwarding>
+	</fns>
+</description>

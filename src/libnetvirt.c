@@ -158,3 +158,18 @@ uint32_t getMplsFromEp(endpoint* ep){
 uint16_t getVlanFromEp(endpoint* ep){
 	return ep->vlan;
 }
+
+uint32_t getNetFromEp(endpoint* ep){
+	return ep->address;
+}
+uint8_t getMaskFromEp(endpoint* ep){
+	return ep->mask;
+}
+
+uint32_t getAddressPEFromEp(endpoint* ep){
+	return ep->address;
+}
+
+uint32_t getAddressCEFromEp(endpoint* ep){
+	return ep->addressEx;
+}

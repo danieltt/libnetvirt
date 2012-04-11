@@ -101,12 +101,13 @@ int main(int argc, char *argv[]) {
 
 	/*DEMO init*/
 	//	fns = parse_fns("fns.xml");
-	fns = parse_fns("fns.xml");
+	fns = parse_fns("fns-l3vpn.xml");
 	if (fns){
 		printFNS(fns);
 		libnetvirt_connect(info,"localhost",2000);
 		libnetvirt_create_fns(info,fns);
 	}
+	exit(0);
 	//	fns = parse_fns("fns2.xml");
 	//	if (fns)
 	//		info->ops.instantiate_fns(fns);
