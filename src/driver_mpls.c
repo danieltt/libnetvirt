@@ -17,35 +17,38 @@
 
  */
 
-#include "libnetvirt/dummy.h"
+#include "libnetvirt/mpls.h"
 #include "python_helper.h"
 
-#define DUMMY_SCRIPT "driver_dummy"
 
-struct dummy_info {
+
+#define MPLS_SCRIPT "driver_mpls"
+
+struct mpls_info {
 	PyObject *pModule;
-} info_dummy;
+} info_mpls;
 
-int dummy_connect(char* addr, int port) {
-	return python_call_init(DUMMY_SCRIPT);
+int mpls_connect(char* addr, int port) {
+	return python_call_init(MPLS_SCRIPT);
+
 }
+int mpls_stop(void) {
 
-int dummy_stop(void) {
 	return python_stop();
 }
 
-int dummy_instantiate_fns(fnsDesc *desc) {
-	return python_call_fns("dummy_create_fns", desc);
+int mpls_instantiate_fns(fnsDesc *desc) {
+	return python_call_fns("mpls_create_fns",desc);
 }
-int dummy_remove_fns(fnsDesc *desc) {
-	return python_call_fns("dummy_remove_fns", desc);
+int mpls_remove_fns(fnsDesc *desc) {
+	return python_call_fns("mpls_remove_fns",desc);
 }
-int dummy_modify_fns_add(fnsDesc *desc) {
-	return python_call_fns("dummy_modify_fns_add", desc);
+int mpls_modify_fns_add(fnsDesc *desc) {
+	return python_call_fns("mpls_modify_fns_add",desc);
 }
-int dummy_modify_fns_del(fnsDesc *desc) {
-	return python_call_fns("dummy_modify_fns_del", desc);
+int mpls_modify_fns_del(fnsDesc *desc) {
+	return python_call_fns("mpls_modify_fns_del",desc);
 }
-int dummy_request_ids(void) {
+int mpls_request_ids(void) {
 	return 0;
 }

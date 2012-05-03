@@ -25,7 +25,7 @@ lib_LTLIBRARIES = libnetvirt-@LIBNETVIRT_API_VERSION@.la
 ## rules which invoke the C++ compiler to produce a libtool object file (.lo)
 ## from each source file.  Note that it is not necessary to list header files
 ## which are already listed elsewhere in a _HEADERS variable assignment.
-libnetvirt_@LIBNETVIRT_API_VERSION@_la_SOURCES = libnetvirt.c of-nox.c fns.c libnetvirt.i driver_dummy.c driver_dummy.py
+libnetvirt_@LIBNETVIRT_API_VERSION@_la_SOURCES = libnetvirt.c of-nox.c fns.c libnetvirt.i driver_dummy.c driver_dummy.py driver_mpls.c driver_mpls.py python_helper.c
 
 ## Instruct libtool to include ABI version information in the generated shared
 ## library file (.so).  The library ABI version is defined in configure.ac, so
@@ -37,8 +37,8 @@ libnetvirt_@LIBNETVIRT_API_VERSION@_la_LDFLAGS = -version-info $(LIBNETVIRT_SO_V
 ## filename, in order to avoid the need to define separate file lists for each
 ## installation directory.  This only works if the directory hierarchy in the
 ## source tree matches the hierarchy at the install location, however.
-libnetvirt_includedir = $(includedir)/libnetvirt-$(LIBNETVIRT_API_VERSION)
-nobase_libnetvirt_include_HEADERS = libnetvirt.h libnetvirt.py
+#libnetvirt_includedir = $(includedir)/libnetvirt-$(LIBNETVIRT_API_VERSION)
+#nobase_libnetvirt_include_HEADERS = libnetvirt.h libnetvirt.py
 
 ## The generated configuration header is installed in its own subdirectory of
 ## $(libdir).  The reason for this is that the configuration information put

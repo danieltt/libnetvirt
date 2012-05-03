@@ -22,9 +22,9 @@
 %{
  /* Includes the header in the wrapper code */
  #define SWIG_PYTHON_EXTRA_NATIVE_CONTAINERS 
- #include "libnetvirt.h"
+ #include "libnetvirt/libnetvirt.h"
  %}
  
  /* Parse the header file to generate wrappers */
-%include "libnetvirt.h"
+%include "libnetvirt/libnetvirt.h"
 %include <stdint.i>

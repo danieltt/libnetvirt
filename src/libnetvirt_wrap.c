@@ -2711,7 +2711,7 @@ static swig_module_info swig_module = {swig_types, 17, 0, 0, 0, 0};
 
  /* Includes the header in the wrapper code */
  #define SWIG_PYTHON_EXTRA_NATIVE_CONTAINERS 
- #include "libnetvirt.h"
+ #include "libnetvirt/libnetvirt.h"
  
 
   #define SWIG_From_long   PyInt_FromLong 

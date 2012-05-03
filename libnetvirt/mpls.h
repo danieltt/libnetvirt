@@ -17,35 +17,18 @@
 
  */
 
-#include "libnetvirt/dummy.h"
-#include "python_helper.h"
+#ifndef MPLS_H_
+#define MPLS_H_
 
-#define DUMMY_SCRIPT "driver_dummy"
+#include <pthread.h>
+#include "libnetvirt/fns.h"
 
-struct dummy_info {
-	PyObject *pModule;
-} info_dummy;
+int mpls_connect(char* addr, int port);
+int mpls_stop(void);
+int mpls_instantiate_fns(fnsDesc *desc);
+int mpls_remove_fns(fnsDesc *desc);
+int mpls_modify_fns_add(fnsDesc *desc);
+int mpls_modify_fns_del(fnsDesc *desc);
+int mpls_request_ids(void);
 
-int dummy_connect(char* addr, int port) {
-	return python_call_init(DUMMY_SCRIPT);
-}
-
-int dummy_stop(void) {
-	return python_stop();
-}
-
-int dummy_instantiate_fns(fnsDesc *desc) {
-	return python_call_fns("dummy_create_fns", desc);
-}
-int dummy_remove_fns(fnsDesc *desc) {
-	return python_call_fns("dummy_remove_fns", desc);
-}
-int dummy_modify_fns_add(fnsDesc *desc) {
-	return python_call_fns("dummy_modify_fns_add", desc);
-}
-int dummy_modify_fns_del(fnsDesc *desc) {
-	return python_call_fns("dummy_modify_fns_del", desc);
-}
-int dummy_request_ids(void) {
-	return 0;
-}
+#endif /* mpls_H_ */
