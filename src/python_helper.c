@@ -22,9 +22,10 @@
 
 int python_call_init(char* script_name) {
 	PyObject *pName;
-	if (Py_IsInitialized())
+	if (Py_IsInitialized()){
+		perror("error initializing python");
 		return -1;
-
+	}
 	printf("Starting python interpreter\n");
 	Py_Initialize();
 
