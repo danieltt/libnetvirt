@@ -25,6 +25,7 @@
 #include "libnetvirt/of-nox.h"
 #include "libnetvirt/dummy.h"
 #include "libnetvirt/libnetvirt.h"
+#include "libnetvirt/mpls.h"
 
 struct libnetvirt_info* libnetvirt_init(int driver) {
 	/*Choose correct functions*/
@@ -48,6 +49,14 @@ struct libnetvirt_info* libnetvirt_init(int driver) {
 		info->ops.connect = dummy_connect;
 		info->ops.stop = dummy_stop;
 		info->ops.instantiate_fns = dummy_instantiate_fns;
+		break;
+	case DRIVER_MPLS:
+		info->ops.connect = mpls_connect;
+		info->ops.stop = mpls_stop;
+		info->ops.instantiate_fns = mpls_instantiate_fns;
+		info->ops.remove_fns = mpls_remove_fns;
+		info->ops.modify_fns_add = mpls_modify_fns_add;
+		info->ops.modify_fns_del = mpls_modify_fns_del;
 		break;
 	}
 	return info;
@@ -128,10 +137,10 @@ endpoint* add_local_epoint(fnsDesc* fns, int index, uint64_t uuid,
 	return NULL;
 }
 
-uint16_t getNepFromFNS(fnsDesc* fns){
+uint16_t getNepFromFNS(fnsDesc* fns) {
 	return fns->nEp;
 }
-uint64_t getUuidFromFNS(fnsDesc* fns){
+uint64_t getUuidFromFNS(fnsDesc* fns) {
 	return fns->uuid;
 }
 
@@ -139,37 +148,37 @@ endpoint* getEndpoint(fnsDesc *fns, int pos) {
 	return GET_ENDPOINT(fns, pos);
 }
 
-uint64_t getUuidFromEp(endpoint* ep){
+uint64_t getUuidFromEp(endpoint* ep) {
 	return ep->uuid;
 }
 
-uint64_t getSwIdFromEp(endpoint* ep){
+uint64_t getSwIdFromEp(endpoint* ep) {
 	return ep->swId;
 }
 
-uint16_t getPortFromEp(endpoint* ep){
+uint16_t getPortFromEp(endpoint* ep) {
 	return ep->port;
 }
 
-uint32_t getMplsFromEp(endpoint* ep){
+uint32_t getMplsFromEp(endpoint* ep) {
 	return ep->mpls;
 }
 
-uint16_t getVlanFromEp(endpoint* ep){
+uint16_t getVlanFromEp(endpoint* ep) {
 	return ep->vlan;
 }
 
-uint32_t getNetFromEp(endpoint* ep){
+char* getNetFromEp(endpoint* ep) {
 	return ep->address;
 }
-uint8_t getMaskFromEp(endpoint* ep){
+uint8_t getMaskFromEp(endpoint* ep) {
 	return ep->mask;
 }
 
-uint32_t getAddressPEFromEp(endpoint* ep){
+char* getAddressPEFromEp(endpoint* ep) {
 	return ep->address;
 }
 
-uint32_t getAddressCEFromEp(endpoint* ep){
+char* getAddressCEFromEp(endpoint* ep) {
 	return ep->addressEx;
 }

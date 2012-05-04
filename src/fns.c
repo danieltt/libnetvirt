@@ -58,8 +58,6 @@ parseEndpoint(xmlDocPtr doc, xmlNsPtr ns, xmlNodePtr cur1) {
 	/* We don't care what the top level element name is */
 	ret->uuid = atoi((const char*) xmlGetProp(cur, (const xmlChar *) "uuid"));
 	ret->vlan = 0xffff;
-	ret->address=0;
-	ret->mask=0;
 	cur = cur->xmlChildrenNode;
 	while (cur != NULL) {
 		if ((!xmlStrcmp(cur->name, (const xmlChar *) "swId"))
@@ -84,31 +82,31 @@ parseEndpoint(xmlDocPtr doc, xmlNsPtr ns, xmlNodePtr cur1) {
 		}
 		if ((!xmlStrcmp(cur->name, (const xmlChar *) "network")) && (cur->ns
 				== ns)) {
-			const char *network = (const char*) xmlNodeListGetString(doc,	cur->xmlChildrenNode, 1);
-			char address[15];
-			char *mask;
-
-			for(i=0;i<strlen(network) && i < 15;i++){
-				if(network[i]=='/'){
-					address[i]=0;
-					break;
-				}
-				address[i]=network[i];
-			}
-			if(i==strlen(network) && i == 15)
-				break;
-
-			mask = strndup(&network[i+1],strlen(network)-strlen(address)-1);
-			printf("network %s mask %s\n",address, mask);
-			ip.s_addr = ret->address;
-			inet_aton(address, (struct in_addr*) &ret->address);
-			printf("net %d\n",ret->address);
-
-
-
-			ret->mask=atoi(mask);
-			free(mask);
-			free(network);
+//			const char *network = (const char*) xmlNodeListGetString(doc,	cur->xmlChildrenNode, 1);
+//			char address[15];
+//			char *mask;
+//
+//			for(i=0;i<strlen(network) && i < 15;i++){
+//				if(network[i]=='/'){
+//					address[i]=0;
+//					break;
+//				}
+//				address[i]=network[i];
+//			}
+//			if(i==strlen(network) && i == 15)
+//				break;
+//
+//			mask = strndup(&network[i+1],strlen(network)-strlen(address)-1);
+//			printf("network %s mask %s\n",address, mask);
+//			ip.s_addr = ret->address;
+//			inet_aton(address, (struct in_addr*) &ret->address);
+//			printf("net %d\n",ret->address);
+//
+//
+//
+//			ret->mask=atoi(mask);
+//			free(mask);
+//			free(network);
 
 		}
 
@@ -116,14 +114,20 @@ parseEndpoint(xmlDocPtr doc, xmlNsPtr ns, xmlNodePtr cur1) {
 		if ((!xmlStrcmp(cur->name, (const xmlChar *) "addressPE")) && (cur->ns
 				== ns)) {
 			const char *network = (const char*) xmlNodeListGetString(doc,	cur->xmlChildrenNode, 1);
-			inet_aton(network, (struct in_addr*) &ret->address);
-			free(network);
+			int len = strlen(network);
+			if (len > 20) len = 20;
+			memcpy(ret->address, network, len);
+			//inet_aton(network, (struct in_addr*) &ret->address);
+			//free(network);
 		}
 		if ((!xmlStrcmp(cur->name, (const xmlChar *) "addressCE")) && (cur->ns
 				== ns)) {
 			const char *network = (const char*) xmlNodeListGetString(doc,	cur->xmlChildrenNode, 1);
-			inet_aton(network, (struct in_addr*) &ret->addressEx);
-			free(network);
+			int len = strlen(network);
+			if (len > 20) len = 20;
+			memcpy(ret->addressEx, network, len);
+			//inet_aton(network, (struct in_addr*) &ret->address);
+			//free(network);
 
 		}
 		/*TODO add extra optional fields*/

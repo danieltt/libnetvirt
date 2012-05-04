@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<description xmlns="http://www.sail-project.eu/fns">
+	<fns name="two-fns" uuid="1">
+		<endpoint id="1">
+			<port>4</port>
+			<mpls>16</mpls>
+			</endpoint>
+		<endpoint id="3">
+			<port>2</port>
+		</endpoint>
+		<forwarding>broadcast</forwarding>
+	</fns>
+</description>

@@ -45,10 +45,10 @@ typedef struct EndPoint {
 	uint16_t port;
 	uint32_t mpls;
 	uint16_t vlan;
-	uint32_t address;
-	uint32_t addressEx;
+	char address[MAX_NAME_SIZE];
+	char addressEx[MAX_NAME_SIZE];
 	uint8_t mask;
-	uint8_t pad[2];
+//	uint8_t pad[2];
 } endpoint;
 
 typedef struct constraint {
@@ -127,10 +127,10 @@ uint64_t getSwIdFromEp(endpoint* ep);
 uint16_t getPortFromEp(endpoint* ep);
 uint32_t getMplsFromEp(endpoint* ep);
 uint16_t getVlanFromEp(endpoint* ep);
-uint32_t getNetFromEp(endpoint* ep);
+char* getNetFromEp(endpoint* ep);
 uint8_t getMaskFromEp(endpoint* ep);
-uint32_t getAddressPEFromEp(endpoint* ep);
-uint32_t getAddressCEFromEp(endpoint* ep);
+char* getAddressPEFromEp(endpoint* ep);
+char* getAddressCEFromEp(endpoint* ep);
 
 extern void printFNS(fnsDesc *cur);
 /*Substrate functions*/
