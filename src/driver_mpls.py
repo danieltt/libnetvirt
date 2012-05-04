@@ -5,9 +5,10 @@
 
 
 import libnetvirt
-import socket,struct
 
-import NetworkManager
+import commands
+
+from NetworkManager import NetworkManager,Database
 
 def mpls_connect(addr,port):
     print "connect to " +addr
@@ -19,16 +20,57 @@ def mpls_stop():
 def mpls_create_fns(desc):
     print "create fns"
     libnetvirt.printFNS(desc)
-    print "FNS uuid ", libnetvirt.getUuidFromFNS(desc)
+    fns_id= libnetvirt.getUuidFromFNS(desc)
     for i in range(0,libnetvirt.getNepFromFNS(desc)):
 
         ep = libnetvirt.getEndpoint(desc,i)
-        print "ep uuid", libnetvirt.getUuidFromEp(ep)
-        print "\t swid ", libnetvirt.getSwIdFromEp(ep)
-        print "\t PE: ", socket.inet_ntoa(struct.pack('I', libnetvirt.getAddressPEFromEp(ep)))
-        print "\t CE:", socket.inet_ntoa(struct.pack('I', libnetvirt.getAddressCEFromEp(ep)))
+        r_id = libnetvirt.getSwIdFromEp(ep)
+        D = Database ('libnetvirt.sqlite')
+        # Get router name
+        #r_name = str(libnetvirt.getSwIdFromEp(ep))
+        r_name = D.getRouterName(r_id)
+
+        # Get the router user name
+        r_uname = D.getRouterUserName(r_id)
+
+        # Get the router interface
+        r_interface = D.getRouterInterface(r_id)+str(libnetvirt.getPortFromEp(ep))
+
+        #r_uname = "root"
+        #r_interface = "eth3"
+        r_d_net = '192.66.23.0'
         
-        #call Kalle's script
+        pe_address = libnetvirt.getAddressPEFromEp(ep)
+        ce_address = libnetvirt.getAddressCEFromEp(ep)
+        
+        #we need net address for CE
+        tmp = commands.getoutput('ipcalc -n ' + str(pe_address))
+        tmp = tmp.split()
+        ce_net = tmp[16]
+        
+        vlan =  libnetvirt.getVlanFromEp(ep)
+        vrf = 'vrf' +  str(fns_id)
+        
+        #get address from global configuration database
+        r_d =  r_d_net + ':' + str(fns_id)
+        
+        #call script for PE configuration
+        print '========================================================================='
+        print 'Script parameters'
+        print 'Router Name: ' + r_name
+        print 'Router username: ' + r_uname
+        print 'Router interface: ' + r_interface
+        print 'PE Address: ' + pe_address
+        print 'CE Address: ' + ce_net
+        print 'Vlan: ' + str(vlan)
+        print 'Vrf: ' + vrf
+        print 'Route Distingusher: ' + r_d
+        print '========================================================================='
+
+        #Calling the scripts for configuration. Uncomment when the network is available
+        NM = NetworkManager(r_name, r_uname, r_interface, pe_address, vlan, ce_net, vrf, r_d)
+        NM.start_configuration()
+
 
     return 0
     
