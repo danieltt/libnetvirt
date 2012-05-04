@@ -3,16 +3,14 @@
 	<fns name="simple-fns" uuid="2">
 		<endpoint uuid="1">
 			<swId>1</swId>
-			<port>2</port>
-			<addressPE>10.0.3.1</addressPE>
-			<addressCE>10.0.3.2</addressCE>
+			<port>13</port>
+			<addressPE>10.66.25.1/30</addressPE>
 			<vlan>10</vlan>
 		</endpoint>
 		<endpoint uuid="4">
 			<swId>2</swId>
-			<port>4</port>
-			<addressPE>10.0.4.1</addressPE>
-			<addressCE>10.0.4.2</addressCE>
+			<port>13</port>
+			<addressPE>10.66.25.5/30</addressPE>
 			<vlan>10</vlan>
 		</endpoint>
 		<forwarding>L3VPN</forwarding>
