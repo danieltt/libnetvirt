@@ -24,9 +24,6 @@
 
 #define MPLS_SCRIPT "driver_mpls"
 
-struct mpls_info {
-	PyObject *pModule;
-} info_mpls;
 
 int mpls_connect(char* addr, int port) {
 	return python_call_init(MPLS_SCRIPT);
