@@ -168,17 +168,7 @@ uint16_t getVlanFromEp(endpoint* ep) {
 	return ep->vlan;
 }
 
-char* getNetFromEp(endpoint* ep) {
-	return ep->address;
-}
-uint8_t getMaskFromEp(endpoint* ep) {
-	return ep->mask;
-}
-
-char* getAddressPEFromEp(endpoint* ep) {
+char* getAddressFromEp(endpoint* ep) {
 	return ep->address;
 }
 
-char* getAddressCEFromEp(endpoint* ep) {
-	return ep->addressEx;
-}

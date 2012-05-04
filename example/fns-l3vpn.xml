@@ -4,13 +4,13 @@
 		<endpoint uuid="1">
 			<swId>1</swId>
 			<port>10</port>
-			<addressPE>10.66.25.1/30</addressPE>
+			<address>10.66.25.1/30</address>
 			<vlan>10</vlan>
 		</endpoint>
 		<endpoint uuid="4">
 			<swId>2</swId>
 			<port>10</port>
-			<addressPE>10.66.25.5/30</addressPE>
+			<address>10.66.25.5/30</address>
 			<vlan>10</vlan>
 		</endpoint>
 		<forwarding>L3VPN</forwarding>

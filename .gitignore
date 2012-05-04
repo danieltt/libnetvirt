@@ -26,3 +26,11 @@ example/shell
 libtool
 stamp-h1
 test_lib
+example/shelltest
+src/eab_dcp/
+python/libnetvirt.py
+src/NetworkManager.py
+src/libnetvirt.py
+src/libnetvirt_wrap.c
+testing/test_create
+

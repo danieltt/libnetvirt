@@ -80,38 +80,9 @@ parseEndpoint(xmlDocPtr doc, xmlNsPtr ns, xmlNodePtr cur1) {
 			ret->vlan = atoi((const char*) xmlNodeListGetString(doc,
 					cur->xmlChildrenNode, 1));
 		}
-		if ((!xmlStrcmp(cur->name, (const xmlChar *) "network")) && (cur->ns
-				== ns)) {
-//			const char *network = (const char*) xmlNodeListGetString(doc,	cur->xmlChildrenNode, 1);
-//			char address[15];
-//			char *mask;
-//
-//			for(i=0;i<strlen(network) && i < 15;i++){
-//				if(network[i]=='/'){
-//					address[i]=0;
-//					break;
-//				}
-//				address[i]=network[i];
-//			}
-//			if(i==strlen(network) && i == 15)
-//				break;
-//
-//			mask = strndup(&network[i+1],strlen(network)-strlen(address)-1);
-//			printf("network %s mask %s\n",address, mask);
-//			ip.s_addr = ret->address;
-//			inet_aton(address, (struct in_addr*) &ret->address);
-//			printf("net %d\n",ret->address);
-//
-//
-//
-//			ret->mask=atoi(mask);
-//			free(mask);
-//			free(network);
-
-		}
 
 		/*PE and CE addresses for L3 VPN*/
-		if ((!xmlStrcmp(cur->name, (const xmlChar *) "addressPE")) && (cur->ns
+		if ((!xmlStrcmp(cur->name, (const xmlChar *) "address")) && (cur->ns
 				== ns)) {
 			const char *network = (const char*) xmlNodeListGetString(doc,	cur->xmlChildrenNode, 1);
 			int len = strlen(network);
@@ -120,16 +91,7 @@ parseEndpoint(xmlDocPtr doc, xmlNsPtr ns, xmlNodePtr cur1) {
 			//inet_aton(network, (struct in_addr*) &ret->address);
 			//free(network);
 		}
-		if ((!xmlStrcmp(cur->name, (const xmlChar *) "addressCE")) && (cur->ns
-				== ns)) {
-			const char *network = (const char*) xmlNodeListGetString(doc,	cur->xmlChildrenNode, 1);
-			int len = strlen(network);
-			if (len > 20) len = 20;
-			memcpy(ret->addressEx, network, len);
-			//inet_aton(network, (struct in_addr*) &ret->address);
-			//free(network);
 
-		}
 		/*TODO add extra optional fields*/
 
 		cur = cur->next;

@@ -40,8 +40,8 @@ def mpls_create_fns(desc):
         #r_interface = "eth3"
         r_d_net = '192.66.23.0'
         
-        pe_address = libnetvirt.getAddressPEFromEp(ep)
-        ce_address = libnetvirt.getAddressCEFromEp(ep)
+        pe_address = libnetvirt.getAddressFromEp(ep)
+        #ce_address = libnetvirt.getAddressCEFromEp(ep)
         
         #we need net address for CE
         tmp = commands.getoutput('ipcalc -n ' + str(pe_address))
