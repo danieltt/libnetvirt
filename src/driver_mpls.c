@@ -25,6 +25,10 @@
 #define MPLS_SCRIPT "driver_mpls"
 
 
+int mpls_init() {
+	return python_call_init(MPLS_SCRIPT);
+
+}
 int mpls_connect(char* addr, int port) {
 	return python_call_init(MPLS_SCRIPT);
 

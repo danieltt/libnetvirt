@@ -23,6 +23,7 @@
 #include <pthread.h>
 #include "libnetvirt/fns.h"
 
+int mpls_init(void);
 int mpls_connect(char* addr, int port);
 int mpls_stop(void);
 int mpls_instantiate_fns(fnsDesc *desc);

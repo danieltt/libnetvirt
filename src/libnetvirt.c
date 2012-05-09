@@ -51,6 +51,7 @@ struct libnetvirt_info* libnetvirt_init(int driver) {
 		info->ops.instantiate_fns = dummy_instantiate_fns;
 		break;
 	case DRIVER_MPLS:
+		mpls_init();
 		info->ops.connect = mpls_connect;
 		info->ops.stop = mpls_stop;
 		info->ops.instantiate_fns = mpls_instantiate_fns;
