@@ -112,6 +112,8 @@ fnsDesc* parse_fns_Mem(const char *content, int length);
 
 endpoint* add_local_epoint(fnsDesc* fns, int index, uint64_t uuid,
 		uint64_t swId, uint32_t port, uint32_t vlan, uint32_t mpls);
+endpoint* add_local_epoint_l3(fnsDesc* fns, int index, uint64_t uuid,
+		uint64_t swId, uint32_t port, uint32_t vlan, char* net);
 fnsDesc* create_local_fns(uint64_t uuid, int nEp, char* name);
 
 /* FNS GETs */

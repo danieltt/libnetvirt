@@ -10,6 +10,8 @@ import commands
 
 from NetworkManager import NetworkManager,Database
 
+
+
 def mpls_connect(addr,port):
     print "connect to " +addr
     return 0
@@ -19,7 +21,7 @@ def mpls_stop():
     
 def mpls_create_fns(desc):
     print "create fns"
-    libnetvirt.printFNS(desc)
+    #libnetvirt.printFNS(desc)
     fns_id= libnetvirt.getUuidFromFNS(desc)
     for i in range(0,libnetvirt.getNepFromFNS(desc)):
 
@@ -79,6 +81,9 @@ def mpls_remove_fns(desc):
     
 def mpls_modify_fns_add(desc):
     print "modify add "
+    #get current fns
+    
+    mpls_create_fns(desc)
         
 def mpls_modify_fns_del(desc):
     print "modify del"

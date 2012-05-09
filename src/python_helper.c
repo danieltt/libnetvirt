@@ -24,11 +24,11 @@ int python_call_init(char* script_name) {
 	PyObject *pName;
 	if (Py_IsInitialized()){
 		perror("error initializing python");
-		return -1;
-	}
-	printf("Starting python interpreter\n");
-	Py_Initialize();
 
+	}else{
+		printf("Starting python interpreter\n");
+		Py_Initialize();
+	}
 	pName = PyString_FromString(script_name);
 	pModule = PyImport_Import(pName);
 	Py_DECREF(pName);
@@ -80,7 +80,7 @@ int python_call_fns(char* function,fnsDesc *desc){
 
 		} else {
 			PyErr_Print();
-			fprintf(stderr, "Failed to load \"%s\"\n");
+			fprintf(stderr, "Failed to load \"%s\"\n",function);
 		}
 		return ret;
 }

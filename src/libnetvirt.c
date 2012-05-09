@@ -136,6 +136,20 @@ endpoint* add_local_epoint(fnsDesc* fns, int index, uint64_t uuid,
 	}
 	return NULL;
 }
+endpoint* add_local_epoint_l3(fnsDesc* fns, int index, uint64_t uuid,
+		uint64_t swId, uint32_t port, uint32_t vlan, char* net) {
+	if (index < fns->nEp) {
+		endpoint* entry = GET_ENDPOINT(fns, index);
+		entry->uuid = uuid;
+		entry->swId = swId;
+		entry->port = port;
+		strcpy(entry->address,net);
+		entry->vlan = vlan;
+		return entry;
+	}
+	return NULL;
+}
+
 
 uint16_t getNepFromFNS(fnsDesc* fns) {
 	return fns->nEp;
