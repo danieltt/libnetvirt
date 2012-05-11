@@ -1,0 +1,214 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Libnetvirt by danieltt</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Libnetvirt</h1>
+        <p>The network virtualization library.</p>
+        <p class="view"><a href="https://github.com/danieltt/libnetvirt">View the Project on GitHub <small>danieltt/libnetvirt</small></a></p>
+        <ul>
+          <li><a href="https://github.com/danieltt/libnetvirt/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/danieltt/libnetvirt/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/danieltt/libnetvirt">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h2>libnetvirt README</h2>
+
+<p>Copyright (C) Daniel Turull <a href="mailto:danieltt@kth.se">danieltt@kth.se</a>
+Redistribution of this software is permitted under the terms of the LGPL License</p>
+
+<p>Welcome to the libnetvirt library. The library to virtualize your network.</p>
+
+<h2>Table of Contents</h2>
+
+<ol>
+<li>What is it?</li>
+<li>The Latest Version</li>
+<li>Installation
+2.1. Requirements
+2.2 Getting the sources
+2.2. Install</li>
+<li>HotTo use (examples)</li>
+<li>Licensing</li>
+<li>Contacts</li>
+<li>Acknowledgment</li>
+<li>Todo</li>
+</ol><hr><h2>0. What is it?</h2>
+
+<p>Libnetvirt is a library that helps to manage virtual networks abstracting the
+underlying technology. Only the endpoints to interconnect are required to 
+create the network.</p>
+
+<p>Currently only has OpenFlow support but we will other underlying technologies.</p>
+
+<p>It is composed several components:</p>
+
+<ul>
+<li>libnetvirt:   library to use with the management applications to control the 
+            network
+            There are C, C++ and Python interfaces</li>
+<li>PyOCNI:       PyOCNI (Python Open Cloud Networking Interface): A Python
+            implementation of an extended OCCI with a JSON serialization
+            and a cloud networking extension.
+            By: Houssem Medhioub</li>
+<li>nox:          OpenFlow controller for the driver of OpenFlow 1.0</li>
+<li>nox11oflib    OpenFlow controller for the driver of OpenFlow 1.1</li>
+</ul><hr><h2>1. The Latest Version</h2>
+
+<p>version 0.1
+1 Feb 2012
+status: Still an ongoing work</p>
+
+<hr><h2>2. Installation</h2>
+
+<h2>2.1. Requirements</h2>
+
+<p>This software has been tested on:</p>
+
+<ul>
+<li>Ubuntu 11.10 64 bits</li>
+</ul><p>Libnetvirt needs these packages to run:
+sudo apt-get install autoconf libtool libxml2-dev swig build-essential \
+     pkg-config python-all-dev git</p>
+
+<p>Nox and nox11oflib need these packages to run:
+sudo apt-get install autoconf automake g++ libtool swig make git-core \
+     libboost-dev libboost-test-dev libboost-filesystem-dev libssl-dev \
+     libpcap-dev python-twisted libboost-dev</p>
+
+<p>PyOCNI needs these packages to run:
+sudo apt-get install python python-all-dev python-setuptools</p>
+
+<h2>2.2 Getting the sources</h2>
+
+<p>Libnetvirt is composed with multiple parts and different git sources
+git clone <a href="mailto:git@bitbucket.org">git@bitbucket.org</a>:dturull/libnetvirt.git
+cd libnetvirt
+git submodule init
+git submodule update</p>
+
+<h2>2.2 Install</h2>
+
+<p>Compile libnetvirt
+./boot
+./configure
+make</p>
+
+<p>To compile PyOCNI 
+copy the libnetvirt library to the backends folder in pyOCNI</p>
+
+<p>cp src/libnetvirt.py PyOCNI/pyocni/backend/libnetvirt.py
+cp src/.libs/libnetvirt-0.1.so.1.0.2 PyOCNI/pyocni/backend/_libnetvirt.so </p>
+
+<p>cd PyOCNI
+sudo python setup.py install</p>
+
+<p>To install OpenFlow NOX controller (nox or nox11oflib)</p>
+
+<p>cd nox11oflib or cd nox
+./boot.sh
+mkdir build
+cd build
+../configure
+make</p>
+
+<hr><h2>3. HotTo use (examples)</h2>
+
+<p>To use the library it is necessary to start the drivers first:
+For nox or nox11oflib
+Change the directory
+cd nox/build/src
+or
+cd nox11oflib/build/src
+Run the fns application:
+ ./nox_core -i ptcp: fns</p>
+
+<p>For OCNI examples to use libnetvirt, look at the examples in:
+PyOCNI/README</p>
+
+<p>There is an example code called shell that it is CLI to control the network
+To use go to examples and execute
+./shell
+It processes XML files that describe the network:
+see *.xml for examples
+to create a network, assuming that the controller is running in the same host</p>
+
+<h1>connect to the driver</h1>
+
+<p>connect</p>
+
+<h1>create a VN</h1>
+
+<p>create fns.xml</p>
+
+<h1>Add one endpoint to the VN</h1>
+
+<p>modify_add fns-add.xml</p>
+
+<h1>Remove one endpoint from the VN</h1>
+
+<p>modify_del fns-add.xml</p>
+
+<h1>Remove the comple VN</h1>
+
+<p>remove fns.xml</p>
+
+<h1>Disconnect from the driver</h1>
+
+<p>disconenct</p>
+
+<hr><h2>4. Licensing</h2>
+
+<p>Copyright (C) 2012 Daniel Turull - KTH Royal Institute of Technology</p>
+
+<p>This library is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as
+published by the Free Software Foundation, either version 3 of
+the License, or (at your option) any later version.</p>
+
+<p>This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU Lesser General Public License
+along with this library.  If not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</p>
+
+<hr><h2>5. Contacts</h2>
+
+<p>Daniel Turull:
+<a href="mailto:danieltt@kth.se">danieltt@kth.se</a></p>
+
+<hr><h2>6. Acknowledgment</h2>
+
+<p>This work has been supported by:
+     SAIL project (IST 7th Framework Programme Integrated Project) 
+     [<a href="http://sail-project.eu/">http://sail-project.eu/</a>]</p>
+
+<hr><h2>7. Todo</h2>
+
+<p>This release of libnetvirt is experimental.  There are many aspects of
+the application that need tending to if it is ever going to fly.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/danieltt">danieltt</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
