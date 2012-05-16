@@ -69,57 +69,29 @@ void parse_args(char *buffer, char** args, size_t args_size, size_t *nargs) {
 int main(int argc, char *argv[]) {
 	char buffer[BUFFER_SIZE];
 	char *args[ARR_SIZE];
-	char
-			*fns_xml =
-					"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\
-			<description xmlns=\"http://www.sail-project.eu/fns\">\
-			<fns name=\"two-fns\" uuid=\"1\">\
-				<endpoint id=\"3\">	\
-					<port>2</port>\
-				</endpoint>\
-				<endpoint id=\"2\">\
-					<port>2</port>\
-				</endpoint>\
-				<endpoint id=\"4\">\
-					<port>1</port>\
-				</endpoint>\
-			</fns>\
-			</description>";
+	char *driver = "openflow";
 
 	size_t nargs;
 
 	struct libnetvirt_info* info;
 
-	puts("LibNetVirt test\n");
-	info = libnetvirt_init(DRIVER_OF_NOX);
+	if(argc==2){
+		driver=argv[1];
+	}
 
-	/*Test parse XML for FNS*/
-	//	libnetvirt_connect(info, "127.0.0.1", 2000);
+	if (!strcmp(driver,"openflow"))
+		info = libnetvirt_init(DRIVER_OF_NOX);
+	else if (strcmp(driver,"mpls")==0)
+		info = libnetvirt_init(DRIVER_MPLS);
+
+	if(!info){
+		printf("Error loading driver\n");
+		exit(-1);
+	}
+
+	printf("LibNetVirt CLI\nUsing driver: %s\n", driver);
 
 	fnsDesc* fns = NULL;
-	//	fnsDesc* fns1 = NULL;
-
-	/*DEMO init*/
-	//	fns = parse_fns("fns.xml");
-	//fns = parse_fns("fns.xml");
-	//if (fns)
-	//	info->ops.instantiate_fns(fns);
-
-	//	fns = parse_fns("fns2.xml");
-	//	if (fns)
-	//		info->ops.instantiate_fns(fns);
-	//	fns = parse_fns("fns-add.xml");
-	//	if (fns)
-	//		info->ops.modify_fns_add(fns);
-	/*Wait input from user*/
-	//fnsDesc* fns2;
-	//fns2 = create_local_fns(10, 2,"name");
-	//add_local_epoint(fns2, 0, 30, 3, 2, 0, 0); /*fns, pos, id, port, mpls */
-	//add_local_epoint(fns2, 1, 20, 2, 2, 0, 0);
-
-	//if (fns2)
-	//	printFNS(fns2);
-	//	libnetvirt_create_fns(info, fns2);
 
 	while (1) {
 		printf("$ ");
@@ -180,11 +152,7 @@ int main(int argc, char *argv[]) {
 		if (!strcmp(args[0], "help")) {
 			usage();
 		}
-		if (!strcmp(args[0], "memory")) {
-			fns = parse_fns_Mem(fns_xml, strlen(fns_xml));
-			if (fns)
-				info->ops.instantiate_fns(fns);
-		}
+
 		if (!strcmp(args[0], "parse")) {
 			fns = parse_fns(args[1]);
 		}
