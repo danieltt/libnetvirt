@@ -243,6 +243,8 @@ static fnsDesc* parseFNSdoc(xmlDocPtr doc) {
 				ret->forwarding = LIBNETVIRT_FORWARDING_L2;
 			else if (!strcasecmp(forwarding, "L3"))
 				ret->forwarding = LIBNETVIRT_FORWARDING_L3;
+			else if (!strcasecmp(forwarding, "L3VPN"))
+				ret->forwarding = LIBNETVIRT_FORWARDING_L3VPN;
 		}
 		cur = cur->next;
 	}
