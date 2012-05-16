@@ -72,12 +72,44 @@ def mpls_create_fns(desc):
         #Calling the scripts for configuration. Uncomment when the network is available
         NM = NetworkManager(r_name, r_uname, r_interface, pe_address, vlan, ce_net, vrf, r_d)
         NM.start_configuration()
+        MN.close_ssh()
 
 
     return 0
     
 def mpls_remove_fns(desc):
     print "remove"
+    #libnetvirt.printFNS(desc)
+    fns_id= libnetvirt.getUuidFromFNS(desc)
+    for i in range(0,libnetvirt.getNepFromFNS(desc)):
+
+        ep = libnetvirt.getEndpoint(desc,i)
+        r_id = libnetvirt.getSwIdFromEp(ep)
+        D = Database ('libnetvirt.sqlite')
+        # Get router name
+        #r_name = str(libnetvirt.getSwIdFromEp(ep))
+        r_name = D.getRouterName(r_id)
+        # Get the router user name
+        r_uname = D.getRouterUserName(r_id)             
+        vlan =  libnetvirt.getVlanFromEp(ep)
+        vrf = 'vrf' +  str(fns_id)
+        
+        print '========================================================================='
+        print 'Script parameters'
+        print 'Router Name: ' + r_name
+        print 'Router username: ' + r_uname
+        print 'Vlan: ' + str(vlan)
+        print 'Vrf: ' + vrf
+        print '========================================================================='
+
+        #Calling the scripts for configuration. Uncomment when the network is available
+        NM = NetworkManager(r_name, r_uname, vlan, vrf)
+        MN.stop_configuration()
+        MN.close_ssh()
+        
+
+
+    return 0
     
 def mpls_modify_fns_add(desc):
     print "modify add "
