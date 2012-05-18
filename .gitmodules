@@ -7,3 +7,6 @@
 [submodule "nox"]
 	path = nox
 	url = git://github.com/danieltt/nox.git
+[submodule "nox-1"]
+	path = nox-1
+	url = git@github.com:danieltt/nox-1.git
