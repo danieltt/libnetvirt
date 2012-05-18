@@ -57,18 +57,6 @@ def mpls_create_fns(desc):
         r_d =  r_d_net + ':' + str(fns_id)
         
         #call script for PE configuration
-        print '========================================================================='
-        print 'Script parameters'
-        print 'Router Name: ' + r_name
-        print 'Router username: ' + r_uname
-        print 'Router interface: ' + r_interface
-        print 'PE Address: ' + pe_address
-        print 'CE Address: ' + ce_net
-        print 'Vlan: ' + str(vlan)
-        print 'Vrf: ' + vrf
-        print 'Route Distingusher: ' + r_d
-        print '========================================================================='
-
         #Calling the scripts for configuration. Uncomment when the network is available
         NM = NetworkManager(r_name, r_uname)
         NM.start_configuration(r_interface, pe_address, ce_net, r_d, vlan, vrf)
@@ -94,14 +82,6 @@ def mpls_remove_fns(desc):
         vlan =  libnetvirt.getVlanFromEp(ep)
         vrf = 'vrf' +  str(fns_id)
         
-        print '========================================================================='
-        print 'Script parameters'
-        print 'Router Name: ' + r_name
-        print 'Router username: ' + r_uname
-        print 'Vlan: ' + str(vlan)
-        print 'Vrf: ' + vrf
-        print '========================================================================='
-
         #Calling the scripts for configuration. Uncomment when the network is available
         NM = NetworkManager(r_name, r_uname)
         NM.stop_configuration(vlan, vrf)

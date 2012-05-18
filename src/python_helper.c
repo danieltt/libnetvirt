@@ -38,7 +38,7 @@ int python_stop(void) {
 		if (pModule)
 			Py_DECREF(pModule);
 
-		Py_Finalize();
+		//Py_Finalize();
 	}
 	return 0;
 }

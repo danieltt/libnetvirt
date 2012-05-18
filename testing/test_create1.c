@@ -63,7 +63,7 @@ int main(int argc, char *argv[]) {
 	for (i=0;i<n;i++) {
 		libnetvirt_connect(info, address,2000);
 		value = i + 1;
-		fns2 = create_local_fns(i, 2,"name-testing");
+		fns2 = create_local_fns(i, 2,"name-testing",LIBNETVIRT_FORWARDING_L2););
 		add_local_epoint(fns2, 0, value, value, 1, 0, 0); /*fns, pos, uuid, swid, port, vlan, mpls */
 		add_local_epoint(fns2, 1, value, value, 2, 0, 0);
 

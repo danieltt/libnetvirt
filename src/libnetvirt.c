@@ -107,7 +107,7 @@ int libnetvirt_request_ids(struct libnetvirt_info* info) {
 	return 0;
 }
 
-fnsDesc* create_local_fns(uint64_t uuid, int nEp, char* name) {
+fnsDesc* create_local_fns(uint64_t uuid, int nEp, char* name, uint8_t type) {
 
 	fnsDesc* ret = NULL;
 	int nPath = 0;
@@ -119,7 +119,7 @@ fnsDesc* create_local_fns(uint64_t uuid, int nEp, char* name) {
 	memset(ret, 0, GET_FNS_SIZE(nEp, nPath));
 	ret->uuid = uuid;
 	ret->nEp = nEp;
-	ret->forwarding = LIBNETVIRT_FORWARDING_L2;
+	ret->forwarding = type;
 	if (strlen(name) < 20)
 		memcpy(ret->name, name, strlen(name));
 	return ret;

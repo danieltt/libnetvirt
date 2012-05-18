@@ -34,7 +34,7 @@ int mpls_connect(char* addr, int port) {
 
 }
 int mpls_stop(void) {
-
+	printf("mpls stop");
 	return python_stop();
 }
 

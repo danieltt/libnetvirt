@@ -7,7 +7,7 @@
 			<address>10.66.25.1/30</address>
 			<vlan>10</vlan>
 		</endpoint>
-		<endpoint uuid="4">
+		<endpoint uuid="2">
 			<swId>2</swId>
 			<port>10</port>
 			<address>10.66.25.5/30</address>
