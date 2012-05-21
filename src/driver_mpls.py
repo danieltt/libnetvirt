@@ -62,6 +62,8 @@ def mpls_create_fns(desc):
         if NM != None:
             NM.start_configuration(r_interface, pe_address, ce_net, r_d, vlan, vrf)
             NM.close_ssh()
+        else:
+            print "Error in applying configuration"
 
 
     return 0
@@ -88,6 +90,8 @@ def mpls_remove_fns(desc):
         if NM != None:
             NM.stop_configuration(vlan, vrf)
             NM.close_ssh()
+        else:
+            print "Error in applying configuration"
         
 
 
