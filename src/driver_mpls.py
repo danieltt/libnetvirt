@@ -59,8 +59,9 @@ def mpls_create_fns(desc):
         #call script for PE configuration
         #Calling the scripts for configuration. Uncomment when the network is available
         NM = NetworkManager(r_name, r_uname)
-        NM.start_configuration(r_interface, pe_address, ce_net, r_d, vlan, vrf)
-        NM.close_ssh()
+        if NM != None:
+            NM.start_configuration(r_interface, pe_address, ce_net, r_d, vlan, vrf)
+            NM.close_ssh()
 
 
     return 0
@@ -84,8 +85,9 @@ def mpls_remove_fns(desc):
         
         #Calling the scripts for configuration. Uncomment when the network is available
         NM = NetworkManager(r_name, r_uname)
-        NM.stop_configuration(vlan, vrf)
-        NM.close_ssh()
+        if NM != None:
+            NM.stop_configuration(vlan, vrf)
+            NM.close_ssh()
         
 
 
