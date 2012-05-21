@@ -23,11 +23,12 @@ def mpls_create_fns(desc):
     print "create fns"
     #libnetvirt.printFNS(desc)
     fns_id= libnetvirt.getUuidFromFNS(desc)
+    D = Database ('libnetvirt.sqlite')
     for i in range(0,libnetvirt.getNepFromFNS(desc)):
 
         ep = libnetvirt.getEndpoint(desc,i)
         r_id = libnetvirt.getSwIdFromEp(ep)
-        D = Database ('libnetvirt.sqlite')
+
         # Get router name
         #r_name = str(libnetvirt.getSwIdFromEp(ep))
         r_name = D.getRouterName(r_id)
@@ -69,14 +70,18 @@ def mpls_create_fns(desc):
     return 0
     
 def mpls_remove_fns(desc):
-    print "remove"
+
+    fns_id= libnetvirt.getUuidFromFNS(desc) 
+    print "remove id " + str(fns_id) + "num of endpoints: " + str(libnetvirt.getNepFromFNS(desc))
+    
     #libnetvirt.printFNS(desc)
-    fns_id= libnetvirt.getUuidFromFNS(desc)
+    
+    D = Database ('libnetvirt.sqlite')
     for i in range(0,libnetvirt.getNepFromFNS(desc)):
 
         ep = libnetvirt.getEndpoint(desc,i)
         r_id = libnetvirt.getSwIdFromEp(ep)
-        D = Database ('libnetvirt.sqlite')
+        
         # Get router name
         #r_name = str(libnetvirt.getSwIdFromEp(ep))
         r_name = D.getRouterName(r_id)
