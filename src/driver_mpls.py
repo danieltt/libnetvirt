@@ -88,12 +88,13 @@ def mpls_remove_fns(desc):
         # Get the router user name
         r_uname = D.getRouterUserName(r_id)             
         vlan =  libnetvirt.getVlanFromEp(ep)
+        pe_if = libnetvirt.getPortFromEp
         vrf = 'vrf' +  str(fns_id)
         
         #Calling the scripts for configuration. Uncomment when the network is available
         NM = NetworkManager(r_name, r_uname)
         if NM != None:
-            NM.stop_configuration(vlan, vrf)
+            NM.stop_configuration(vlan, vrf,pe_if)
             NM.close_ssh()
         else:
             print "Error in applying configuration"

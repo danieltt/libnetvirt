@@ -173,8 +173,9 @@ int close_con(int fd) {
 
 int of_nox_connect(char* addr, int port) {
 
-	if (of_nox_info.run)
-		return -1;
+	if (of_nox_info.run){
+		of_nox_stop();
+	}
 	//printf("Connection OF-NOX driver to: %s:%d\n", addr, port);
 	of_nox_info.run = 1;
 	return start_server(addr, port);
