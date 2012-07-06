@@ -27,7 +27,7 @@ Libnetvirt is a library that helps to manage virtual networks abstracting the
 underlying technology. Only the endpoints to interconnect are required to 
 create the network.
 
-Currently only has OpenFlow support but we will other underlying technologies.
+Currently libnetvirt has only  OpenFlow support but we are planning to offer drivers for other underlying technologies.
 
 It is composed several components:
 
@@ -56,7 +56,7 @@ status: Still an ongoing work
 2.1. Requirements
 -----------------
 This software has been tested on:
-* Ubuntu 11.10 64 bits
+* Ubuntu 12.04 64 bits
 
 Libnetvirt needs these packages to run:
 sudo apt-get install autoconf libtool libxml2-dev swig build-essential \
