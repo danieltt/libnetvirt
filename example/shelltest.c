@@ -30,6 +30,7 @@
 #define BUFFER_SIZE 1<<16
 #define ARR_SIZE 1<<16
 #define PORT_NOX 2000
+#define MAX_END 20
 
 void usage(void) {
 	puts("create: sends request to server");
@@ -91,21 +92,79 @@ int main(int argc, char *argv[]) {
 	struct libnetvirt_info* info;
 
 	puts("LibNetVirt test\n");
-	info = libnetvirt_init(DRIVER_MPLS);
+	info = libnetvirt_init(DRIVER_OF_NOX);
 
 	/*Test parse XML for FNS*/
 	//	libnetvirt_connect(info, "127.0.0.1", 2000);
 
-	fnsDesc* fns = NULL;
+	fnsDesc* fnsA[20];
 	//	fnsDesc* fns1 = NULL;
+	int num=4+99+254;
+	
+	int iter=num/MAX_END;
+	int index=0;
+	int j;
 
-	/*DEMO init*/
-	//	fns = parse_fns("fns.xml");
-	fns = parse_fns("fns-l3vpn.xml");
+	for (j=0;j<iter;j++){
+		printf("Creating fns %d\n",j);
+		fnsA[j] = create_local_fns(10, MAX_END ,"name",LIBNETVIRT_FORWARDING_L2);
+	}	
+	fnsA[j] = create_local_fns(10, num%MAX_END ,"name",LIBNETVIRT_FORWARDING_L2);
+	printf("Creation done\n");
+	fnsDesc* fns = fnsA[index];
+	add_local_epoint(fns, 0, 1, 1, 1, 65535, 0); /*fns, pos, id, port, vlan,mpls */
+	add_local_epoint(fns, 1, 2, 2, 1, 65535, 0);
+	add_local_epoint(fns, 2, 3, 3, 1, 65535, 0);
+	add_local_epoint(fns, 3, 4, 4, 1, 65535, 0);
+	
+	int id=5;
+	int pos=4;
+	int i;
+	int total=4;
+	index=0;
+	printf("Adding first loop\n");
+	for (i=2;i<102;i++){
+		if(total%MAX_END==0){
+			printf("New set\n");
+			index++;
+			fns = fnsA[index];
+			pos=0;
+		}
+		add_local_epoint(fns, pos, id, 5, i, 65535, 0);
+		pos++;
+		id++;
+		total++;
+	}
+	for (i=2;i<256;i++){
+		if(total%MAX_END==0){
+			printf("New set\n");
+			index++;
+			fns = fnsA[index];
+			pos=0;
+		}
+		add_local_epoint(fns, pos, id, 6, i, 65535, 0);
+		pos++;
+		id++;
+		total++;
+	}
+
 	if (fns){
-		printFNS(fns);
-		libnetvirt_connect(info,"localhost",2000);
-		libnetvirt_create_fns(info,fns);
+
+		libnetvirt_connect(info,"127.0.0.1",PORT_NOX);
+		printFNS(fnsA[0]);
+		libnetvirt_create_fns(info,fnsA[0]);
+		for(j=1;j<iter+1;j++){
+		//libnetvirt_remove_fns(info, fns);
+
+			sleep(1);
+			fns= fnsA[j];
+			printFNS(fns);
+			libnetvirt_modify_fns_add(info,fns);
+
+			printf("size%lu\n",sizeof(*fns)*8);
+	
+
+		}
 	}
 	exit(0);
 	//	fns = parse_fns("fns2.xml");

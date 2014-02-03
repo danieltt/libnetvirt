@@ -2,12 +2,36 @@
 <description xmlns="http://www.sail-project.eu/fns">
 	<fns name="simple-fns" uuid="2">
 		<endpoint uuid="1">
-			<swId>1</swId>
-			<port>1</port>
+			<swId>3</swId>
+			<port>2</port>
 		</endpoint>
 		<endpoint uuid="4">
-			<swId>4</swId>
+			<swId>6</swId>
 			<port>2</port>
+		</endpoint>
+		<endpoint uuid="5">
+			<swId>4</swId>
+			<port>1</port>
+		</endpoint>
+		<endpoint uuid="67">
+			<swId>5</swId>
+			<port>2</port>
+		</endpoint>
+		<endpoint uuid="61">
+			<swId>2</swId>
+			<port>2</port>
+		</endpoint>
+		<endpoint uuid="6">
+			<swId>2</swId>
+			<port>3</port>
+		</endpoint>
+		<endpoint uuid="76">
+			<swId>7</swId>
+			<port>2</port>
+		</endpoint>
+		<endpoint uuid="76">
+			<swId>5</swId>
+			<port>3</port>
 		</endpoint>
 		<forwarding>L2</forwarding>
 	</fns>
