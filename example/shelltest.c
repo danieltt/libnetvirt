@@ -99,7 +99,7 @@ int main(int argc, char *argv[]) {
 
 	fnsDesc* fnsA[20];
 	//	fnsDesc* fns1 = NULL;
-	int num=4+99+254;
+	int num=6+99+254;
 	
 	int iter=num/MAX_END;
 	int index=0;
@@ -117,10 +117,13 @@ int main(int argc, char *argv[]) {
 	add_local_epoint(fns, 2, 3, 3, 1, 65535, 0);
 	add_local_epoint(fns, 3, 4, 4, 1, 65535, 0);
 	
-	int id=5;
-	int pos=4;
+	add_local_epoint(fns, 4, 5, 1, 3, 65535, 0);
+	add_local_epoint(fns, 5, 6, 5, 101, 65535, 0);
+	
+	int id=7;
+	int pos=6;
 	int i;
-	int total=4;
+	int total=pos;
 	index=0;
 	printf("Adding first loop\n");
 	for (i=2;i<102;i++){
